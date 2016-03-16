@@ -1,6 +1,6 @@
 /*
  *Feel free to modify and distribute the code and all relevant documentation
-* This code is provided as is and the author takes no responsibility
+* This code is provided as is and the author
  */
 package rohan;
 
@@ -9,7 +9,8 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 /**
- * S.I.L.O.S interpreter
+ * S.I.L.O.S interpeter
+ *
  * @author rohan
  */
 public class Silos {
@@ -40,6 +41,7 @@ public class Silos {
         String[] program = getWordsFromFile(getStringFromUser("FileName?"));
         int ptr = 1;
         int length = program.length;
+        String line = null;
         try {
             mem = new int[Integer.parseInt(program[0])];
         }//allocates the memory on the first line of code
@@ -48,7 +50,7 @@ public class Silos {
         }
         while (ptr < length) {
             try {
-                String line = program[ptr];
+                line = program[ptr];
                 String[] tokens = line.split(" ");
                 if (line.startsWith("GOTO ")) {
                     for (int i = 0; i < length; i++) {
@@ -96,11 +98,16 @@ public class Silos {
                     mem[evalToken(tokens[1])] = evalToken(tokens[2]);
                 } else if (tokens[0].equals("if")) {
                     if (evalToken(tokens[1]) > 0) {
-                        for (int i = 0; i < length; i++) {
+                        for (int i = 0; i < program.length; i++) {
+         try{
                             if (program[i].substring(3).equals(tokens[2])) {
                                 ptr = i - 1;//we increment it later
                             }
-                        }
+         }catch(Exception ex){
+         //my apologies for the kludge 
+         }    
+         }
+
                     }
                 } else if (tokens[0].equals("readIO")) {
                     mem['i'] = getIntFromUser(line.substring(7));
@@ -109,9 +116,14 @@ public class Silos {
                 }
                 ptr++;
             } catch (Exception ex) {
-                //praise vb on error resume next!
+                ex.printStackTrace();
+                //to enable warnings uncomment this warning
+                //System.err.println("Some error on line: " + ptr + " \"" + line + "\"");
+                //praise vb "on error resume next"!
+                ptr++;
             }
         }
+        System.exit(0);
     }
 
     /**
