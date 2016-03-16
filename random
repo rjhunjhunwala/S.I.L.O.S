@@ -1,0 +1,13 @@
+//getting random numbers
+// this short snippet shows a simple infinite loop first printing a random number from 0 to four
+//than showing some math operators available setting a to 1024 and than using that result to get a random number from 0- 1024
+lblf
+rand 5
+printInt r
+a = 1
+a ^ 72
+a * 2
+a ^ 10 
+rand a
+printInt r
+GOTO f
