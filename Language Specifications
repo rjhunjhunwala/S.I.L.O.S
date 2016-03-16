@@ -20,7 +20,7 @@ a = get 5
 lblFoo
 goto Foo
 No syntax checking
-VB like behabior allowing erros to pass unnoticed and unhandled
+VB like behavior allowing erros to pass unnoticed and unhandled
 if x Foo //goes to Foo iff x>0
 a - 5
 a + 5
