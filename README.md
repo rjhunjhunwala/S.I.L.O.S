@@ -1,5 +1,6 @@
 # S.I.L.O.S
 S.I.L.O.S language of the future
+"All of the challenge of assembly all of the slowness of the jvm"
 A minimalist language which strives to be Turing complete while staying comfortably above the turing tarpit muck
 no declaration needed for variables
 x = 5 assigns five to x but x started at 0 if it received no value
