@@ -107,9 +107,7 @@ But never do this unless it is for obfuscation purposes the compiler will strugg
 also as far as commenting goes the compiler will ignore non code thus
 this is a comment
 is valid syntax
-but don't do this as
-1 = foo
-would break your code
+but don't do this and try to use some conisstent marking of comments
 instead // is recommended to start all comments
 lastly as input and randomness are stored into the variables i and r when requested it is recommended that you reserve these
 variables for that use
