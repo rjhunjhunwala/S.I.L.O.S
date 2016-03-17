@@ -1,0 +1,80 @@
+1024
+/*
+* Sample program let it ride each turn the computer picks a number [0,10] and the user picks a number from [1,10]
+* if the user's pick is greater than the computer he loses otherwise he keeps playing the users score is the sum of 
+* the numbers he guessed plus certain bonuses based on hw he plays, and takes a bonus for quitting early
+*/
+printLine Welcome to let it ride
+p = 0
+lblStartGame
+print High Score:
+printInt p
+s = 0
+q = 0
+lblGameLoop
+readIO Quit for bonus points? (1 = yes) (0 = no)
+if i quit
+GOTO doContinuedGameLoop
+lblquit
+s + q
+GOTO lost
+lbldoContinuedGameLoop
+readIO Enter A number From One To Ten?
+if i continue
+printLine Bad Input TOO LOW
+GOTO GameLoop
+lblcontinue
+b = i
+b - 10
+if b bad
+GOTO good
+lblbad
+printLine Bad Input TOO HIGH
+GOTO GameLoop
+lblgood
+z = i
+readIO How long do you wish to let it ride?
+c = i
+d = c
+// c is ride counter
+i = z
+//i is users input
+lblrideLoop
+rand 11
+a = i
+a - r
+if a lost
+a |
+if a noBonus
+printLine Double Points!
+s + i
+lblnoBonus
+print The computer chose:
+printInt r
+printLine Good Guess
+q + 10
+q - r
+s + i
+c - 1
+if c rideLoop
+print score:
+z = i
+z * d
+s + z
+printInt s
+GOTO GameLoop
+lbllost
+printLine Game Over!
+print The computer chose:
+printInt r
+printLine Your Score:
+printInt s
+z = s
+z - p
+if z newHigh
+GOTO next
+lblnewHigh
+p = s
+lblnext
+readIO Play again type 1 for yes or 0 for no?
+if i StartGame
