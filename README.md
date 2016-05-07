@@ -1,4 +1,5 @@
 # S.I.L.O.S
+S.I.L.O.S was developed to showcase minimal features needed for a practical simple programming langauge. The syntax is designed to be very forgiving. S.I.L.O.S was developed to help people from any coding background, and to best acknowledge this the author has decided to disclaim any rights to this code. This code is public domain, but is provided "As is". Please Enjoy the experience of this language. 
 #Acronym
   -  Superb
   - Interpreted
