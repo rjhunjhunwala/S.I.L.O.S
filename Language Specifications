@@ -97,18 +97,26 @@ _(____/___(_ __(___/_/___(___ _
               (_ /        
 the first line is used by the interpreter to allocate the size of the array (heap) this number should be at least 256
 if you omit this line the interpretter will just allocate 512 slots in its memory for its future use
-you are limited in variable names and due`
+you are limited to using only one character strings for code. 
 1 = 5
 printInt 1
 //prints five
 print 1
-//5 
-But never do this unless it is for obfuscation purposes the compiler will struggle with resolving what you are talking about
-also as far as commenting goes the compiler will ignore non code thus
+//prints the string literal 1
+But never use such naming, unless for obfuscation purposes as the compiler will struggle with resolving what you are talking about
+The compiler will ignore non code thus the code snipped below
+
 this is a comment
+
 is valid syntax
-but don't do this and try to use some conisstent marking of comments
+but don't do this and try to use some conistent marking of comments
 instead // is recommended to start all comments
+So
+
+j = 5
+//assign 5 to j
+
+would be potentially better code
 lastly as input and randomness are stored into the variables i and r when requested it is recommended that you reserve these
 variables for that use
  .----------------.  .-----------------. .----------------.  .----------------.  .----------------. 
