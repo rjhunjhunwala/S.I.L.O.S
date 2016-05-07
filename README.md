@@ -1,9 +1,9 @@
 # S.I.L.O.S
 #Acronym
   -  Superb
-   - Interpreted
+  - Interpreted
   - Language's
-   - Obviously
+  - Obviously
   - Superior
         
 #Key Features
