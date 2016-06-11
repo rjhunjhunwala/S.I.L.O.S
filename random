@@ -5,9 +5,8 @@ lblf
 rand 5
 printInt r
 a = 1
-a ^ 72
-a * 2
-a ^ 10 
+a * 512
+a + 512
 rand a
 printInt r
 GOTO f
