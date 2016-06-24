@@ -1,0 +1,47 @@
+512
+/*******************************************************************************************************************\
+* Rohan Jhunjhunwala is the author of this code and has no liability no warranty is given including merchantability *
+* or fitness for use for a particular cause                                                                         *
+* The use of this source is free to anyone who obtains a copy as long as any relevant applicable terms are followed *
+* This is to be interpreted with the S.I.L.O.S compiler which stands for Superb Interpreted Language's Obviously    *
+* Superior This code represents a sampling of assorted features                                                     *
+\*******************************************************************************************************************/
+//this is example code
+// on the first line we allocate the memory use at least 256 but 512 is recommended
+// the objective here is to show how great this language is
+//if you are tired of those pesky brackets than use this langauge no brackets needed just goto
+//the result is beautiful spaghetti
+//most non code will just not run but any invalid character at the front is safer
+a = 2
+//assignment note all variables are self initialized to 0 and only type is int
+lblMain
+//labels u can go to
+b = 10001
+b - a
+// b - a subtracts a from b and re stores that value
+if b continue
+// all integers that are greater than 0 are truthy
+GOTO END
+//else body here note the goto format case sensitive
+lblcontinue
+d = 2
+lblInnerDiv
+c = a
+c - d
+c - 1
+if c divide
+printInt a
+GOTO incr
+lbldivide
+z = a
+z % d
+d + 1
+if z InnerDiv
+lblincr
+a + 1
+GOTO Main
+lblEND
+printLine end
+// three kinds of print printInt a //prints out the value stored in a printLine a // prints out a with trailing newline
+//lastly print for no trailing new line
+//see other documentation for how to directly access the buffer with commands like get and set

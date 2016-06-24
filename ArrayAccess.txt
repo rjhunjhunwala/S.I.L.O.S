@@ -1,0 +1,22 @@
+512
+//sets the heap explicitly to 512 this can be removed
+/*******************************************************************************\
+*Documentation of get and set commands                                         *
+\*******************************************************************************/
+set 288 57
+//acccesses the heap at 288 and sets it to 57
+a = get 288
+//gets back what the thing at position 288
+printInt a
+set a 88
+//sets the thing at position a to 88
+b = get a
+//gets the thing at position a and sets it in the value of b
+printInt b
+a + 10
+b + 11
+set b a
+//sets what is at b's position to a
+c= get b
+//gets the number from above
+printInt c

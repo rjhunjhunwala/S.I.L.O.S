@@ -1,0 +1,61 @@
+GOSUB printfoo
+lblstart
+GOSUB fibOfN
+printInt f
+n + 1
+GOTO start
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+GOTO endutilities
+funcprintfoo
+GOSUB printbar
+print foo
+return
+funcprintbar
+print bar
+return
+/**
+* Iterative fibonnaci sequence implementation will store the value of the n th fibonacci sequence member in f
+*/
+funcfibOfN
+if n dontQuit
+f = 1
+return
+lbldontQuit
+n - 1
+f = 1
+w = 1
+y = 1
+c = 0
+lbltopFor
+d = n
+d - c
+if d continue
+f = y
+n + 1
+return
+lblcontinue
+t = w
+t + y
+w = y
+y = t
+c + 1
+GOTO topFor
+return
+lblendutilities
