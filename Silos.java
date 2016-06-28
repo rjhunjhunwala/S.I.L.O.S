@@ -38,6 +38,7 @@ public class Silos {
      *
      * @param args the command line arguments which should never be used
      */
+    static int[] vars;
     public static void main(String[] args) {
        Stack<Integer> stack = new Stack<>();
         String[] program = getWordsFromFile(getStringFromUser("FileName?"));
@@ -48,7 +49,7 @@ public class Silos {
             mem = new int[Integer.parseInt(program[0])];
         }//allocates the memory on the first line of code
         catch (Exception ex) {
-            mem = new int[512];//default size if there is no allocation specified
+            mem = new int[8192];//default size if there is no allocation specified
         }
         while (ptr < length) {
             try {
@@ -77,8 +78,12 @@ public class Silos {
                 }
                 else if (line.startsWith("printLine ")) {
                     System.out.println(line.substring(10));
-                } else if (line.startsWith("print ")) {
-                    System.out.println(line.substring(6));
+                }
+               else if (line.startsWith("printChar ")) {
+                    System.out.print((char) evalToken(tokens[1]));
+                }
+                else if (line.startsWith("print ")) {
+                    System.out.print(line.substring(6));
                 } else if (line.startsWith("printInt ")) {
                     System.out.println(mem[tokens[1].charAt(0)]);
                 } else if (tokens[0].length() == 1) {
