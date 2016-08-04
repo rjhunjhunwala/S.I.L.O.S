@@ -56,7 +56,7 @@ a + 10
 b + 11
 set b a
 //sets what is at b's position to a
-c= get b
+c = get b
 //gets the number from above
 printInt c
  ___               ___      ________     
