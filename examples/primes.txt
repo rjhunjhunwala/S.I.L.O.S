@@ -42,6 +42,6 @@ a + 1
 GOTO Main
 lblEND
 printLine end
-// three kinds of print printInt a //prints out the value stored in a printLine a // prints out a with trailing newline
-//lastly print for no trailing new line
+// four kinds of print printInt a //prints out the value stored in a printLine a // prints out a with trailing newline
+//lastly print for no trailing new line //printChar x prints out the character with the ascii value of x
 //see other documentation for how to directly access the buffer with commands like get and set
