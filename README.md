@@ -106,11 +106,12 @@ printLine a
 print a
 //prints out "a" with no trailing new line
 printChar x prints out the value of x as a character
-</pre>                                                             
-<pre>|`````````,       .'.       |..          | |``````.   .~ooooooo~.        .'. .`.       
+</pre>                                                                         
+<pre>
+|`````````,       .'.       |..          | |``````.   .~      ~.        .'. .`.       
 |'''|'''''      .''```.     |  ``..      | |       | |          |     .'   `   `.     
 |    `.       .'       `.   |      ``..  | |       | |          |   .'           `.   
-|      `.   .'           `. |          ``| |......'   `.ooooooo.'  .'               `. 
+|      `.   .'           `. |          ``| |......'   `.______.'  .'               `. 
 </pre>                                                                                 
 the randomness is provided by a prng currently the
 prng is provided courtesy of Oracle and uses the system time as a seed
