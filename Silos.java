@@ -1,6 +1,6 @@
 /*
  *Feel free to modify and distribute the code and all relevant documentation
-* This code is provided as is and the author
+* This code is provided as is and the author 
  */
 
 
