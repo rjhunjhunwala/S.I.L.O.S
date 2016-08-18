@@ -55,6 +55,7 @@ That is the basic syntax, note that as of this printing, integers are 32 bit sig
                                                           /              
                                                          o                  
                                                       __/>               
+                                                      
 </pre> 
 You can directly write to the memory buffer like such
 <pre>
@@ -103,10 +104,12 @@ print a
 //prints out "a" with no trailing new line
 printChar x prints out the value of x as a character
 </pre>                                                                         
-<pre>|`````````,       .'.       |..          | |``````.   .~      ~.        .'. .`.       
+<pre>                                                        ______                        
+|`````````,       .'.       |..          | |``````.   .~      ~.        .'. .`.       
 |'''|'''''      .''```.     |  ``..      | |       | |          |     .'   `   `.     
 |    `.       .'       `.   |      ``..  | |       | |          |   .'           `.   
-|      `.   .'           `. |          ``| |......'   `.______.'  .'               `. </pre>                                                                                 
+|      `.   .'           `. |          ``| |......'   `.______.'  .'               `. 
+</pre>                                                                                                                                                             
 the randomness is provided by a prng currently the
 prng is provided courtesy of Oracle and uses the system time as a seed
 <pre>rand x</pre>
