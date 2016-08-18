@@ -21,11 +21,11 @@ It is also known as SIL (Simple Interpreted Language)
 `----'   `--'  `-' `-'  `-' `-'  `-'`-'  `-'</pre>
 The syntax is simple
 <pre>
-One command per line
-one letter variable names
-Only type integer 
-No declaration needed they all start at 0
-Turing complete direct access to the array like such 
+//One command per line
+//one letter variable names
+//Only type integer 
+//No declaration needed they all start at 0
+//direct access to the memory array 
 a = get 5
 lblFoo
 goto Foo
@@ -42,18 +42,16 @@ a | //absolute value of a and reassigns this to a
 </pre>
 That is the basic syntax, note that as of this printing, integers are 32 bit signed integers [-1*2^31,2^31-1] which overflow and wrap around. 
 </br>There is a plan to make them big numbers
-<pre>    o                                                               
-        <|>                                                              
-        / \                                                              
-      o/   \o       \o__ __o   \o__ __o     o__ __o/   o      o    __o__ 
-     <|__ __|>       |     |>   |     |>   /v     |   <|>    <|>  />  \  
-     /       \      / \   < >  / \   < >  />     / \  < >    < >  \o     
-   o/         \o    \o/        \o/        \      \o/   \o    o/    v\    
-  /v           v\    |          |          o      |     v\  /v      <\   
- />             <\  / \        / \         <\__  / \     <\/>  _\o__</   
-                                                          /              
-                                                         o                  
-                                                      __/> </pre> 
+<pre>
+  __  __                                   ____         __  __          
+ |  \/  |                                 |  _ \       / _|/ _|         
+ | \  / | ___ _ __ ___   ___  _ __ _   _  | |_) |_   _| |_| |_ ___ _ __ 
+ | |\/| |/ _ \ '_ ` _ \ / _ \| '__| | | | |  _ <| | | |  _|  _/ _ \ '__|
+ | |  | |  __/ | | | | | (_) | |  | |_| | | |_) | |_| | | | ||  __/ |   
+ |_|  |_|\___|_| |_| |_|\___/|_|   \__, | |____/ \__,_|_| |_| \___|_|   
+                                    __/ |                               
+                                   |___/       
+</pre>
 You can directly write to the memory buffer like such
 <pre>
 set 288 57
