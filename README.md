@@ -108,10 +108,12 @@ print a
 printChar x prints out the value of x as a character
 </pre>                                                                         
 <pre>
-|`````````,       .'.       |..          | |``````.   .~------~.        .'. .`.       
+                                                        ______                        
+|`````````,       .'.       |..          | |``````.   .~      ~.        .'. .`.       
 |'''|'''''      .''```.     |  ``..      | |       | |          |     .'   `   `.     
 |    `.       .'       `.   |      ``..  | |       | |          |   .'           `.   
-|      `.   .'           `. |          ``| |......'  '.--------.'  .'               `. 
+|      `.   .'           `. |          ``| |......'   `.______.'  .'               `. 
+                                                                                      
 </pre>                                                                                 
 the randomness is provided by a prng currently the
 prng is provided courtesy of Oracle and uses the system time as a seed
