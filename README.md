@@ -107,8 +107,7 @@ print a
 //prints out "a" with no trailing new line
 printChar x prints out the value of x as a character
 </pre>                                                             
-<pre>                                                   
-                                                        ______
+<pre>                                                        ______
 |`````````,       .'.       |..          | |``````.   .~      ~.        .'. .`.       
 |'''|'''''      .''```.     |  ``..      | |       | |          |     .'   `   `.     
 |    `.       .'       `.   |      ``..  | |       | |          |   .'           `.   
