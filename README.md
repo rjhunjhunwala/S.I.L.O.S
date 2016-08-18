@@ -1,17 +1,22 @@
+#S.I.L.O.S
+S.I.L.O.S or SIL is designed for a nostalgic view of the past. It is simple and minimalistic, but remains capable of universal computation.
 Feel free to [try this language online](http://silos.tryitonline.net/#code=cHJpbnQgVGhlIExhbmd1YWdlIFRoYXQgV29ya3MgRm9yIFlvdSE&input=)
+<hr/>
 <pre>
  ____     __     __       __     ____ 
 / ___)   (  )   (  )     /  \   / ___)
 \___ \ _  )(  _ / (_/\ _(  O )_ \___ \
 (____/(_)(__)(_)\____/(_)\__/(_)(____/
 </pre>
+S.I.L.O.S is a bit arrogant of an acronym which stands for.
 <pre>
-Superb
-Interpreted
-Language's
-Obviously
-Superior
+<b>S</b>uperb
+<b>I</b>nterpreted
+<b>L</b>anguage's
+<b>O</b>bviously
+<b>S</b>uperior
 </pre>
+It is also known as SIL (Simple Interpreted Language)
 <pre>
  .----..-.  .-..-. .-. .---.  .--.  .-.  .-.
 { {__   \ \/ / |  `| |{_   _}/ {} \  \ \/ / 
