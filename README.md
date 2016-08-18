@@ -2,12 +2,10 @@
 S.I.L.O.S or SIL is designed for a nostalgic view of the past. It is simple and minimalistic, but remains capable of universal computation.
 Feel free to [try this language online](http://silos.tryitonline.net/#code=cHJpbnQgVGhlIExhbmd1YWdlIFRoYXQgV29ya3MgRm9yIFlvdSE&input=)!
 <hr/>
-<pre>
- ____     __     __       __     ____ 
+<pre> ____     __     __       __     ____ 
 / ___)   (  )   (  )     /  \   / ___)
 \___ \ _  )(  _ / (_/\ _(  O )_ \___ \
-(____/(_)(__)(_)\____/(_)\__/(_)(____/
-</pre>
+(____/(_)(__)(_)\____/(_)\__/(_)(____/</pre>
 S.I.L.O.S is a bit arrogant of an acronym which stands for.
 <pre>
 <b>S</b>uperb
@@ -17,12 +15,10 @@ S.I.L.O.S is a bit arrogant of an acronym which stands for.
 <b>S</b>uperior
 </pre>
 It is also known as SIL (Simple Interpreted Language)
-<pre>
- .----..-.  .-..-. .-. .---.  .--.  .-.  .-.
+<pre> .----..-.  .-..-. .-. .---.  .--.  .-.  .-.
 { {__   \ \/ / |  `| |{_   _}/ {} \  \ \/ / 
 .-._} }  }  {  | |\  |  | | /  /\  \ / /\ \ 
-`----'   `--'  `-' `-'  `-' `-'  `-'`-'  `-'
-</pre>
+`----'   `--'  `-' `-'  `-' `-'  `-'`-'  `-'</pre>
 The syntax is simple
 <pre>
 One command per line
@@ -107,14 +103,10 @@ print a
 //prints out "a" with no trailing new line
 printChar x prints out the value of x as a character
 </pre>                                                                         
-<pre>
-                                                        ______                        
-|`````````,       .'.       |..          | |``````.   .~      ~.        .'. .`.       
+<pre>|`````````,       .'.       |..          | |``````.   .~      ~.        .'. .`.       
 |'''|'''''      .''```.     |  ``..      | |       | |          |     .'   `   `.     
 |    `.       .'       `.   |      ``..  | |       | |          |   .'           `.   
-|      `.   .'           `. |          ``| |......'   `.______.'  .'               `. 
-                                                                                      
-</pre>                                                                                 
+|      `.   .'           `. |          ``| |......'   `.______.'  .'               `. </pre>                                                                                 
 the randomness is provided by a prng currently the
 prng is provided courtesy of Oracle and uses the system time as a seed
 <pre>rand x</pre>
