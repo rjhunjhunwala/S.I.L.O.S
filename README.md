@@ -6,7 +6,7 @@ Feel free to [try this language online](http://silos.tryitonline.net/#code=cHJpb
 / ___)   (  )   (  )     /  \   / ___)
 \___ \ _  )(  _ / (_/\ _(  O )_ \___ \
 (____/(_)(__)(_)\____/(_)\__/(_)(____/</pre>
-S.I.L.O.S is a bit arrogant of an acronym which stands for.
+S.I.L.O.S stands for.
 <pre>
 <b>S</b>uperb
 <b>I</b>nterpreted
@@ -42,8 +42,7 @@ a | //absolute value of a and reassigns this to a
 </pre>
 That is the basic syntax, note that as of this printing, integers are 32 bit signed integers [-1*2^31,2^31-1] which overflow and wrap around. 
 </br>There is a plan to make them big numbers
-<pre>
-         o                                                               
+<pre>    o                                                               
         <|>                                                              
         / \                                                              
       o/   \o       \o__ __o   \o__ __o     o__ __o/   o      o    __o__ 
@@ -54,9 +53,7 @@ That is the basic syntax, note that as of this printing, integers are 32 bit sig
  />             <\  / \        / \         <\__  / \     <\/>  _\o__</   
                                                           /              
                                                          o                  
-                                                      __/>               
-                                                      
-</pre> 
+                                                      __/> </pre> 
 You can directly write to the memory buffer like such
 <pre>
 set 288 57
