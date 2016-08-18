@@ -70,6 +70,10 @@ printInt c
 input and output is done like so
 readIO SOME PROMPT FOR THE USER
 the magical interpreter thus prints out SOME PROMPT FOR THE USER  and stores the value in the variable i
+NOTE that for the onlne version it is imperative you avoid the use of this command. All prompts are disabled in the online version, so
+printLine SOME PROMPT
+and then
+readIO :
 Printing is done with three commands
 printInt a
 //prints out the value of a with a trailing newline
@@ -77,6 +81,7 @@ printLine a
 //prints out "a" with a trailing newline
 print a
 //prints out "a" with no trailing new line
+printChar x prints out the value of x as a character
                                                         ______                        
 |`````````,       .'.       |..          | |``````.   .~      ~.        .'. .`.       
 |'''|'''''      .''```.     |  ``..      | |       | |          |     .'   `   `.     
@@ -113,7 +118,7 @@ Also ensure to jump around the functions with the Goto's otherwise all the funct
 
 Ideally functions should have only one return statement.
 
-As of this printing functions can only be void and have no rturn type. 
+As of this printing functions can only be void and have no return type. 
 _______________________________
       __                       
     /    )              /      
