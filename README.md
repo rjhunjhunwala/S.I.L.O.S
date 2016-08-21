@@ -28,7 +28,7 @@ The syntax is simple
 //direct access to the memory array 
 a = get 5
 lblFoo
-goto Foo
+GOTO Foo
 No syntax checking
 VB like behavior allowing erros to pass unnoticed and unhandled
 if x Foo //goes to Foo iff x>0
