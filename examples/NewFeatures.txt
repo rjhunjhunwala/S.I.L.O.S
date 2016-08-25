@@ -1,0 +1,23 @@
+//This shows the new features of SIL
+def p print load loadLine : lbl
+//With the new "illiterate preprocessor" (tm) the above statement (which must appear on the second line) defines any number of macros in the form of def string replace string2 replace
+p Hello,
+pLine  World!
+pSee
+pLine!
+a = 5
+pInt a
+//loading the next line of stdin as a string is easy.
+load testing!
+//look the macro now will allow : to work as a label
+a = 256
+:a
+x = get a
+printInt x
+if x continue
+GOTO end
+:continue
+pChar x
+a + 1
+if x a
+:end
