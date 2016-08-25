@@ -167,6 +167,32 @@ could break your code
 instead // is recommended to start all comments
 lastly as input and randomness are stored into the variables i and r when requested it is recommended that you reserve these
 variables for that use
+As of 8/24/2016 SIL has new, improved input, here are the new features
+<pre>
+//This shows the new features of SIL
+def p print load loadLine : lbl
+//With the new "illiterate preprocessor" (tm) the above statement (which must appear on the second line) defines any number of macros in the form of def string replace string2 replace
+p Hello,
+pLine  World!
+pSee
+pLine!
+a = 5
+pInt a
+//loading the next line of stdin as a string is easy.
+load testing!
+//look the macro now will allow : to work as a label
+a = 256
+:a
+x = get a
+printInt x
+if x continue
+GOTO end
+:continue
+pChar x
+a + 1
+if x a
+:end
+</pre>
 <pre>
  .----------------.  .-----------------. .----------------.  .----------------.  .----------------. 
 | .--------------. || .--------------. || .--------------. || .--------------. || .--------------. |
