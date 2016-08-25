@@ -77,7 +77,7 @@ static String[] arg;
 program[i] = replace;
 		 }
 	 }
-for(String s:program)System.out.println(s);
+//for(String s:program)System.out.println(s);
 	 while (ptr < length) {
 			try {
 				line = program[ptr];
