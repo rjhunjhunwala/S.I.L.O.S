@@ -68,7 +68,7 @@ public class Silos {
 			char c = e.getKeyChar();
 			for (int i = 0; i < bindings.length - 1; i += 2) {
 				if (c == bindings[i]) {
-					System.out.println(c + ":pressed!");
+					//System.out.println(c + ":pressed!");
 					mem[bindings[i + 1]] = 1;
 				}
 			}
@@ -93,7 +93,6 @@ public class Silos {
 	 * will disable interactivity
 	 */
 	public static void main(String[] args) {
-		System.out.println((char) 65);
 		arg = args;
 		Stack<Integer> stack = new Stack<>();
 		String[] program = getWordsFromFile((interactive = (args.length == 0)) ? getStringFromUser("FileName?") : args[0]);
@@ -215,6 +214,7 @@ public class Silos {
 				} else if (tokens[0].equals("wait")) {
 					Thread.sleep(evalToken(tokens[1]));
 				} else if (tokens[0].equals("draw") && Canvas.createdCanvas) {
+					//System.out.println(Canvas.pen);
 					int startX = evalToken(tokens[2]);
 					int startY = evalToken(tokens[3]);
 					int widthX = evalToken(tokens[4]);
