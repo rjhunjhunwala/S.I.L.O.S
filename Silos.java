@@ -3,11 +3,18 @@
 * This code is provided as is and the author
  */
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.Stack;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 /**
  * S.I.L.O.S interpeter
@@ -20,7 +27,8 @@ public class Silos {
 	 * This integer[] represents the heap of memory which can be addressed
 	 */
 	static int[] mem;
-static int line = 1;
+	static int line = 1;
+
 	/**
 	 * Prints out the prompt and then returns the string user types
 	 *
@@ -28,29 +36,67 @@ static int line = 1;
 	 * @return the string typed into the console
 	 */
 	public static String getStringFromUser(String prompt) {
-		if (prompts) {
+		if (interactive) {
 			System.out.println(prompt);
-		Scanner sc = new Scanner(System.in);
-		return sc.nextLine();
-		}else{
-String in =  arg[line];
-		line++;
-return in;
+			Scanner sc = new Scanner(System.in);
+			return sc.nextLine();
+		} else {
+			String in = arg[line];
+			line++;
+			return in;
 		}
 	}
+
+	static class Input implements KeyListener {
+
+		static int[] bindings;
+
+		public static void setNewBindings(String[] bind) {
+			bindings = new int[bind.length];
+			for (int i = 0; i < bindings.length; i++) {
+				bindings[i] = evalToken(bind[i]);
+			}
+		}
+
+		@Override
+		public void keyTyped(KeyEvent e) {
+
+		}
+
+		@Override
+		public void keyPressed(KeyEvent e) {
+			char c = e.getKeyChar();
+			for (int i = 0; i < bindings.length - 1; i += 2) {
+				if (c == bindings[i]) {
+					System.out.println(c + ":pressed!");
+					mem[bindings[i + 1]] = 1;
+				}
+			}
+		}
+
+		@Override
+		public void keyReleased(KeyEvent e) {
+
+		}
+
+	}
+	static boolean interactive = true;
+	static int[] vars;
+	static String[] arg;
 
 	/**
 	 * The main interpretation code
 	 *
-	 * @param args the command line arguments which should never be used
+	 * @param args the command line arguments to be passed from the online
+	 * interpreter the first argument represents a fileName, and the rest
+	 * represent a source of input Feeding in any number of command line arguments
+	 * will disable interactivity
 	 */
-	static boolean prompts = true;
-	static int[] vars;
-static String[] arg;
 	public static void main(String[] args) {
-	arg = args;
+		System.out.println((char) 65);
+		arg = args;
 		Stack<Integer> stack = new Stack<>();
-		String[] program = getWordsFromFile((prompts = (args.length == 0)) ? getStringFromUser("FileName?") : args[0]);
+		String[] program = getWordsFromFile((interactive = (args.length == 0)) ? getStringFromUser("FileName?") : args[0]);
 		int ptr = 0;
 		int length = program.length;
 		String line = null;
@@ -62,23 +108,23 @@ static String[] arg;
 		}
 		String def = program[1];
 		ArrayList<String> macro = new ArrayList<>();
-		if(def.startsWith("def")){
+		if (def.startsWith("def")) {
 			String[] defs = def.split(" ");
-			for(int i =1/*yes 1!*/;i<defs.length;i++){
+			for (int i = 1/*yes 1!*/; i < defs.length; i++) {
 				macro.add(defs[i]);
 			}
 		}
-	 for(int i = 0;i<program.length;i++){
-		 if(!program[i].startsWith("def")){
-		 String replace = program[i];
-		 for(int j =0;j<macro.size();j+=2){
-			 replace = replace.replaceAll(macro.get(j), macro.get(j+1));
-		 }
-program[i] = replace;
-		 }
-	 }
+		for (int i = 0; i < program.length; i++) {
+			if (!program[i].startsWith("def")) {
+				String replace = program[i];
+				for (int j = 0; j < macro.size(); j += 2) {
+					replace = replace.replaceAll(macro.get(j), macro.get(j + 1));
+				}
+				program[i] = replace;
+			}
+		}
 //for(String s:program)System.out.println(s);
-	 while (ptr < length) {
+		while (ptr < length) {
 			try {
 				line = program[ptr];
 				String[] tokens = line.split(" ");
@@ -156,15 +202,50 @@ program[i] = replace;
 					mem['i'] = getIntFromUser(line.substring(7));
 				} else if (tokens[0].equals("rand")) {
 					mem['r'] = (int) (Math.random() * evalToken(tokens[1]));
-				}else if(tokens[0].equals("loadLine")){
-					String in = getStringFromUser(tokens[1]);
-				  for(int i = 256;i<256+in.length();i++){
-						mem[i] = in.charAt(i-256);
-					
+				} else if (tokens[0].equals("loadLine")) {
+					String in = getStringFromUser(line.substring(9));
+					for (int i = 256; i < 256 + in.length(); i++) {
+						mem[i] = in.charAt(i - 256);
+
+					}
+				} else if (tokens[0].equals("canvas")) {
+					if (interactive) {
+						Canvas.createCanvas(evalToken(tokens[1]), evalToken(tokens[2]), line.substring(line.lastIndexOf(" ")));
+					}
+				} else if (tokens[0].equals("wait")) {
+					Thread.sleep(evalToken(tokens[1]));
+				} else if (tokens[0].equals("draw") && Canvas.createdCanvas) {
+					int startX = evalToken(tokens[2]);
+					int startY = evalToken(tokens[3]);
+					int widthX = evalToken(tokens[4]);
+					int widthY = evalToken(tokens[5]);
+					double a = widthX * widthX / 4;
+					double b = widthY * widthY / 4;
+					boolean square = tokens[1].equals("square");
+					for (int i = startX; i < startX + widthX; i++) {
+						for (int j = startY; j < startY + widthY; j++) {
+							int xC = i - (startX + widthX / 2);
+							int yC = j - (startY + widthY / 2);
+							if (square || ((xC * xC) / a) + ((yC * yC) / b) < 1) {
+								 if(i>0&&j>0&&i<Canvas.canvas.length&&j<Canvas.canvas[i].length){
+									Canvas.canvas[i][j] = Canvas.pen;
+							}
+							}
+						}
+					}
+				} else if (tokens[0].equals("pen")) {
+					if (Canvas.createdCanvas) {
+						Canvas.pen = new Color(evalToken(tokens[1]), evalToken(tokens[2]), evalToken(tokens[3]));
+					}
+				} else if (tokens[0].equals("bind")) {
+					Input.setNewBindings(Arrays.copyOfRange(tokens, 1, tokens.length));
+				} else if (tokens[0].equals("refresh")) {
+					if (Canvas.createdCanvas) {
+						Canvas.c.repaint();
 					}
 				}
 				ptr++;
-			
+
 			} catch (Exception ex) {
 				ex.printStackTrace();
 				//to enable warnings uncomment this warning
@@ -174,6 +255,61 @@ program[i] = replace;
 			}
 		}
 		System.exit(0);
+	}
+
+	public static class Canvas extends JFrame {
+
+		public static class Panel extends JPanel {
+
+			public Panel(int inX, int inY) {
+				x = inX;
+				y = inY;
+			}
+			public int x, y;
+
+			@Override
+			public void paintComponent(Graphics g) {
+				for (int i = 0; i < x; i++) {
+					for (int j = 0; j < y; j++) {
+						g.setColor(canvas[i][j]);
+						g.fillRect(i, j, 1, 1);
+					}
+				}
+			}
+
+			@Override
+			public Dimension getPreferredSize() {
+				return new Dimension(x, y);
+			}
+		}
+		public static Color[][] canvas;
+		public static Color pen = Color.white;
+		static boolean createdCanvas = false;
+		public static Canvas c;
+
+		private Canvas(int x, int y, String message) {
+			super(message);
+			this.setVisible(true);
+			this.add(new Panel(x, y));
+			this.pack();
+			this.setAlwaysOnTop(true);
+			this.setLocationRelativeTo(null);
+			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			this.addKeyListener(new Input());
+		}
+
+		public static void createCanvas(int x, int y, String message) {
+			if (!createdCanvas) {
+				createdCanvas = true;
+				canvas = new Color[x][y];
+				for (int i = 0; i < canvas.length; i++) {
+					for (int j = 0; j < canvas[i].length; j++) {
+						canvas[i][j] = Color.white;
+					}
+				}
+				c = new Canvas(x, y, message);
+			}
+		}
 	}
 
 	/**
