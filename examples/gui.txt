@@ -1,0 +1,58 @@
+//This is an informal spec for the new graphical user interface features
+def : lbl
+//We are using a macro to replace all occurences of : with lbl
+canvas 640 640 S.I.L.O.S
+//Create a 640 by 640 canvas and name it S.I.L.O.S
+bind 65 512 97 512 68 513 100 513 87 514 119 514 83 515 115 515
+//bind the wasd keys to the 512 - 515th spots of the heap.
+//If there is a canvas open. THere will be a keyListener to bind each of the keys pressed to the respective spot
+//input to bind is in the form bind key1 spot key2 spot etcetera etcetera
+y = 50
+x = 50
+//start the player at 50,50
+:a
+//main game loop
+pen 255 255 255
+draw circle x y 50 50
+//erase the past player
+//alter the position of the player if necessary
+
+a = get 512
+if a b
+GOTO c
+:b
+x - 15
+set 512 0
+:c
+
+a = get 513
+if a b1
+GOTO c1
+:b1
+x + 15
+set 513 0
+:c1
+
+a = get 514
+if a b2
+GOTO c2
+:b2
+y - 15
+set 514 0
+:c2
+
+a = get 515
+if a b3
+GOTO c3
+:b3
+y + 15
+set 515 0
+:c3
+
+//draw a new player
+pen 255 0 0
+draw circle x y 50 50
+//refresh the screen
+refresh
+wait 15
+GOTO a
