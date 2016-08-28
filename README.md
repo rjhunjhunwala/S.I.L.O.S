@@ -195,7 +195,7 @@ if x a
 :end
 </pre>
 #Graphics 
-Support for Graphical Output has been added in SILOS 2.0. SILOS 2.0 comes primarily with support for graphics, but also features I highly optimized interpreter, and a <pre>wait x</pre> command which as the name would suggest, waits x milliseconds. Now, let's take a look at how graphical output works. 
+Support for Graphical Output has been added in SILOS 2.0. SILOS 2.0 comes primarily with support for graphics, but also features I highly optimized interpreter (<b>thanks to  kckennylau!</b>), and a <pre>wait x</pre> command which as the name would suggest, waits x milliseconds. Now, let's take a look at how graphical output works. 
 <pre>canvas width height wordForTheHeader</pre>
 You first must use the above command to declare a canvas
 THan you must decide to create objects
