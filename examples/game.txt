@@ -1,8 +1,7 @@
 //simple game to jump over the projectiles
 def : lbl
 canvas 640 640 The-Avoidance-Game!
-bind 87 512 119 512
-//bind the w and W keys
+
 pen 0 0 255
 newObj 0 640 640
 //players x and y coordinates
@@ -31,7 +30,9 @@ E = r
 newObj 1 35 35
 moveObj 3 Q E
 refresh
-wait 3000
+wait 1500
+bind 87 512 119 512
+//bind the w and W keys
 :a
 
 //alter the position of the player as necessary
