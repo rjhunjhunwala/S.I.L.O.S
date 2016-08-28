@@ -1,14 +1,20 @@
-//whitespace is now ignored on all lines exluding the macro definition and heap declaration
+    512
+def : lbl
     printLine This stuff Works!
 a =10
 s   =32
-lbla
+printInt s
+s=33
+printInt s
+s= 34
+printInt s
+s=     35
+printInt s
+:a
     printIntNoLine a
-    printChar s
     printLine  Apples!
     a  -1
 if a a
 readIO
-printIntNoLine i
-printChar s    
-printLine  was the number inputted.
+printIntNoLine i  
+    printLine  was the number inputted.
