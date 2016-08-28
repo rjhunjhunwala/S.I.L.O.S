@@ -1,8 +1,8 @@
-#S.I.L.O.S
+<h1>S.I.L.O.S</h1>
 S.I.L.O.S or SIL is designed for a nostalgic view of the past. It is simple and minimalistic, but remains capable of universal computation.
-Feel free to [try this language online](http://silos.tryitonline.net/#code=cHJpbnQgU2ltcGxlIEludGVycHJldGVkIExhbmd1YWdl&input=)! The interpreter is hosted by Dennis Mitchell. 
+Feel free to [try this language online http://silos.tryitonline.net/#code=cHJpbnQgU2ltcGxlIEludGVycHJldGVkIExhbmd1YWdl&input=]! The interpreter is hosted by Dennis Mitchell. 
 <hr/>
-## S.I.L.O.S
+<h2> S.I.L.O.S </h2>
 S.I.L.O.S stands for.
 <pre>
 <b>S</b>uperb
@@ -12,7 +12,7 @@ S.I.L.O.S stands for.
 <b>S</b>uperior
 </pre>
 It is also known as SIL (Simple Interpreted Language)
-## Syntax
+<h2> Syntax </h2>
 The syntax is simple
 <pre>
 //One command per line
@@ -37,7 +37,7 @@ a ^ 5
 </pre>
 That is the basic syntax, note that as of this printing, integers are 32 bit signed integers [-1*2^31,2^31-1] which overflow and wrap around. 
 </br>There is a plan to make them big numbers with unbounded size.
-## Memory Buffer
+<h2> Memory Buffer </h2>
 
 You can directly write to the memory buffer like such
 <pre>
@@ -60,7 +60,7 @@ c = get b
 printInt c
 </pre>
 Remember please be careful to not use any positions below 256 on the array as these can be used for ascii variable names, touch these at great peril
-## IO
+<h2>IO</h2>
 input and output is done like so
 <pre>readIO SOME PROMPT FOR THE USER</pre>
 the magical interpreter thus prints out SOME PROMPT FOR THE USER  and stores the value in the variable i
@@ -78,13 +78,13 @@ print a
 printChar x prints out the value of x as a character
 </pre>
 
-## Entropy                                                                                                                                                    
+<h2> Entropy </h2>                                                                                                                                                    
 the randomness is provided by a prng currently the
 prng is provided courtesy of Oracle and uses the system time as a seed
 <pre>rand x</pre>
 gets a random number [0,x) 0 inclusive to max exclusive and stores it in the variable r
 max may also be a literal like 12
-## Functions
+<h2> Functions </h2>
 See the usage of functions in functions.txt to better comperehend it, but here is the basics. Function should be declared as
 such
 <pre>
@@ -106,9 +106,7 @@ Also ensure to jump around the functions with the Goto's otherwise all the funct
 Ideally functions should have only one return statement.
 
 As of this printing functions can only be void and have no return type. 
-<pre>
-## Style
-</pre>
+<h2> Style </h2>
 the first line is used by the interpreter to allocate the size of the array (heap) this number should be at least 256
 if you omit this line the interpretter will just allocate 8192 slots in its memory for its future use
 you are allowed to use single character identifiiers
@@ -119,9 +117,11 @@ print 1
 //1</pre>
 But never do this unless it is for obfuscation purposes the compiler will struggle with resolving what you are talking about
 also as far as commenting goes the compiler will ignore non code thus
+<pre>
 this is a comment
+</pre>
 is valid syntax
-but don't do this
+but don't abuse this as
 <pre>1 = foo</pre>
 could break your code
 instead // is recommended to start all comments
@@ -129,6 +129,7 @@ lastly as input and randomness are stored into the variables i and r when reques
 variables for that use
 As of 8/24/2016 SIL has new, improved input, here are the new features
 <pre>
+<h1>S.I.L.O.S 1.5</h1>
 //This shows the new features of SIL
 def p print load loadLine : lbl
 //With the new "illiterate preprocessor" (tm) the above statement (which must appear on the second line) defines any number of macros in the form of def string replace string2 replace
@@ -153,7 +154,8 @@ a + 1
 if x a
 :end
 </pre>
-#Graphics 
+<hr/>
+<h1>Graphics</h1> 
 Support for Graphical Output has been added in SILOS 2.0. SILOS 2.0 comes primarily with support for graphics, but also features I highly optimized interpreter (<b>thanks to  kckennylau!</b>), and a <pre>wait x</pre> command which as the name would suggest, waits x milliseconds. Now, let's take a look at how graphical output works. 
 <pre>canvas width height wordForTheHeader</pre>
 You first must use the above command to declare a canvas
@@ -172,4 +174,3 @@ At any point you can place a binding to certain characters
 When the corresponding characters get typed (and a canvas has already been created) the corresponding heapspot will be set to one. <b>This feature only works on the desktop version when a canvas is in focus</b>
 <hr/>
 <h1><b>Please note that all interactivity including graphics support is unavailable on Try it Online! all input must be through command line arguments</b></h1>
-
