@@ -30,7 +30,7 @@ public class Silos {
 	 */
 	private static int[] mem;
 	private static String[] texts;
-
+ 
 	private final static int GOTO = 0 << 8;
 	private final static int GOSUB = 1 << 8;
 	private final static int RETURN = 2 << 8;
@@ -60,7 +60,8 @@ public class Silos {
 	private final static int ASSIGN = 26 << 8;
 	private final static int NEWOBJ = 27 << 8;
 	private static final int MOVEOBJ = 28 << 8;
-
+  private static final int NOOP = 29<<8;
+	
 	private final static int INTEGER = 0;
 	private final static int VARIABLE = 1;
 
@@ -81,7 +82,7 @@ public class Silos {
 
 	static class Input implements KeyListener {
 
-		static int[] bindings;
+		static int[] bindings = new int[]{};
 
 		public static void setNewBindings(int[] bind) {
 			bindings = new int[bind.length / 2 - 1];
@@ -416,6 +417,10 @@ public class Silos {
 			ArrayList<String> texts = new ArrayList<>();
 			for (int i = 0; i < tokens.size(); i++) {
 				String command = tokens.get(i);
+				if(command.startsWith("//")){
+					program.add(new int[]{Silos.NOOP});
+				continue;
+				}
 				if (command.startsWith("def")) {
 					continue;
 				}
