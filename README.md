@@ -51,6 +51,8 @@ set a 88
 b = get a
 //gets the thing at position a and sets it in the value of b
 printInt b
+printIntNoLine a
+printLine
 a + 10
 b + 11
 set b a
@@ -173,4 +175,7 @@ At any point you can place a binding to certain characters
 <pre>bind intRepresentingChar1 heapSpot1 intOfChar2 heapSpot2 etcetera</pre> Where intRepresentingChar is an integer literal or variable representing a char ((ascii convention used) 97 would mean 'a') and heapspot is an integer value of a valid spot on the heap. 
 When the corresponding characters get typed (and a canvas has already been created) the corresponding heapspot will be set to one. <b>This feature only works on the desktop version when a canvas is in focus</b>
 <hr/>
+<h1>Whitespace</h1>
+Most whitespace dependency is gone. The only necessary whitespace separates arguments and the new lines between commands. 
+All lines are now indentable excluding the optional macro declaration and heap allocation.
 <h1><b>Please note that all interactivity including graphics support is unavailable on Try it Online! all input must be through command line arguments</b></h1>
