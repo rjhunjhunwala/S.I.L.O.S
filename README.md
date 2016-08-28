@@ -37,7 +37,8 @@ a + 5
 a * 5
 a /  5
 a % 5
-a | //absolute value of a and reassigns this to a
+a | //absolute value of a and reassigns this to 
+a ^ 5
 //all assignment operators x - 5 is the equivalent of x-=5 for those familiar with C styled languages
 </pre>
 That is the basic syntax, note that as of this printing, integers are 32 bit signed integers [-1*2^31,2^31-1] which overflow and wrap around. 
@@ -193,6 +194,24 @@ a + 1
 if x a
 :end
 </pre>
+#Graphics 
+Support for Graphical Output has been added in SILOS 2.0. SILOS 2.0 comes primarily with support for graphics, but also features I highly optimized interpreter, and a <pre>wait x</pre> command which as the name would suggest, waits x milliseconds. Now, let's take a look at how graphical output works. 
+<pre>canvas width height wordForTheHeader</pre>
+You first must use the above command to declare a canvas
+THan you must decide to create objects
+Each object will be in the current pen color.
+THe pen color gets set with 
+<pre>pen r g b</pre> where r g and b are variables represent red green and blue values of a color (of any name) or integer literals.
+Than you can create an object
+<pre>newObj type height width</pre> a square is type 0 an elipse is type one. Height and width and type are all variables/integer literals. This will add a new object to the drawable list. This list is zero indexed.
+<pre>moveObj index x y</pre> will move an object to a designated location.
+<pre>refresh</pre> is a mandatory command to be invoked once you have moved the objects around. refresh is the only way to actually trigger the painting. 
+Please see the game.txt and gui.txt files in the examples folder for an explanation.
+#Keyboard Bindings
+At any point you can place a binding to certain characters
+<pre>bind intRepresentingChar1 heapSpot1 intOfChar2 heapSpot2 etcetera</pre> where intRepresentingChar is an integer literal or variable representing a char ((ascii convention used) 97 would mean 'a') and heapspot is an integer value of a valid spot on the heap. 
+When the corresponding characters get typed (and a canvas has already been created) the corresponding heapspot will be set to one. <b>This feature only works on the desktop version when a canvas is in focus</b>
+#Please note that all interactivity including graphics support is unavailable on Try it Online! all input must be through command line arguments
 <pre>
  .----------------.  .-----------------. .----------------.  .----------------.  .----------------. 
 | .--------------. || .--------------. || .--------------. || .--------------. || .--------------. |
