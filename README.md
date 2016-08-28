@@ -177,5 +177,5 @@ When the corresponding characters get typed (and a canvas has already been creat
 <hr/>
 <h1>Whitespace</h1>
 Most whitespace dependency is gone. The only necessary whitespace separates arguments and the new lines between commands. 
-All lines are now indentable excluding the optional macro declaration and heap allocation.
+All lines are now indentable!
 <h1><b>Please note that all interactivity including graphics support is unavailable on Try it Online! all input must be through command line arguments</b></h1>
