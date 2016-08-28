@@ -167,7 +167,7 @@ public class Silos {
 						ptr = stack.pop();
 						break;
 					case PRINTLINE:
-						System.out.println(texts[tokens[1]]);
+						System.out.println(tokens.length > 1 ? texts[tokens[1]] : "");
 						break;
 					case PRINTCHAR:
 						System.out.print((char) evalToken(tokens[0], tokens[1], 0));
@@ -189,7 +189,8 @@ public class Silos {
 						d.y = y;
 						break;
 					case PRINT:
-						System.out.print(texts[tokens[1]]);
+						//potential no-op
+						System.out.print(tokens.length > 1 ? texts[tokens[1]] : "");
 						break;
 					case PRINTINT:
 						System.out.println(evalToken(Silos.VARIABLE, tokens[1], 0));
@@ -225,9 +226,13 @@ public class Silos {
 						mem[evalToken(tokens[0], tokens[1], 0)] = evalToken(tokens[0], tokens[2], 1);
 						break;
 					case READIO:
-						if (interactive) {
-							mem['i'] = Integer.parseInt(getStringFromSTDIN(tokens.length > 1 ? texts[tokens[1]] : "", sc));
-						} else {
+						if(interactive){
+							if(tokens.length > 1){
+								mem['i'] = Integer.parseInt(getStringFromSTDIN(texts[tokens[1]],sc));
+							}else{
+								mem['i'] = Integer.parseInt(sc.nextLine());
+							}
+						}else{
 							mem['i'] = Integer.parseInt(args[arg_index++]);
 						}
 						break;
@@ -236,9 +241,13 @@ public class Silos {
 						break;
 					case LOADLINE:
 						char[] in;
-						if (interactive) {
-							in = getStringFromSTDIN(tokens.length > 1 ? texts[tokens[1]] : "", sc).toCharArray();
-						} else {
+						if(interactive){
+							if(tokens.length > 1){
+								in = getStringFromSTDIN(texts[tokens[1]],sc).toCharArray();
+							}else{
+								in = sc.nextLine().toCharArray();
+							}
+						}else{
 							in = args[arg_index++].toCharArray();
 						}
 						for (int i = 0, j = 256; i < in.length; i++, j++) {
@@ -468,7 +477,25 @@ public class Silos {
 					program.add(new int[]{Silos.PRINTLINE, index});
 					continue;
 				}
-				String[] words = command.split(" ");
+				if(command.length() > 1){
+					switch(command.charAt(1)){
+					case '+':
+					case '-':
+					case '*':
+					case '/':
+					case '%':
+					case '^':
+					case '=':
+					case '|':
+						if(command.length() <= 2 || command.charAt(2) == ' '){
+							command = command.charAt(0) + " " + command.substring(1);
+						}else{
+							command = command.charAt(0) + " " + command.charAt(1) + " " + command.substring(2);
+						}
+						break;
+					}
+				}
+				String[] words = command.split(" +");
 				if (words.length == 0) {
 					continue;
 				}
