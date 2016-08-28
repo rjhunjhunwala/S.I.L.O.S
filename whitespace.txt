@@ -1,0 +1,14 @@
+//whitespace is now ignored on all lines exluding the macro definition and heap declaration
+    printLine This stuff Works!
+a =10
+s   =32
+lbla
+    printIntNoLine a
+    printChar s
+    printLine  Apples!
+    a  -1
+if a a
+readIO
+printIntNoLine i
+printChar s    
+printLine  was the number inputted.
