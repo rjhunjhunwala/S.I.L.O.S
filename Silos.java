@@ -30,7 +30,7 @@ public class Silos {
 	 */
 	private static int[] mem;
 	private static String[] texts;
- 
+
 	private final static int GOTO = 0 << 8;
 	private final static int GOSUB = 1 << 8;
 	private final static int RETURN = 2 << 8;
@@ -60,7 +60,8 @@ public class Silos {
 	private final static int ASSIGN = 26 << 8;
 	private final static int NEWOBJ = 27 << 8;
 	private static final int MOVEOBJ = 28 << 8;
-	
+	private static final int PRINTINTNOLINE = 29 << 8;
+
 	private final static int INTEGER = 0;
 	private final static int VARIABLE = 1;
 
@@ -195,6 +196,9 @@ public class Silos {
 					case PRINTINT:
 						System.out.println(evalToken(Silos.VARIABLE, tokens[1], 0));
 						break;
+					case PRINTINTNOLINE:
+						System.out.print(evalToken(Silos.VARIABLE, tokens[1], 0));
+						break;
 					case ASSIGN:
 						mem[tokens[1]] = evalToken(tokens[0], tokens[2], 0);
 						break;
@@ -226,13 +230,13 @@ public class Silos {
 						mem[evalToken(tokens[0], tokens[1], 0)] = evalToken(tokens[0], tokens[2], 1);
 						break;
 					case READIO:
-						if(interactive){
-							if(tokens.length > 1){
-								mem['i'] = Integer.parseInt(getStringFromSTDIN(texts[tokens[1]],sc));
-							}else{
+						if (interactive) {
+							if (tokens.length > 1) {
+								mem['i'] = Integer.parseInt(getStringFromSTDIN(texts[tokens[1]], sc));
+							} else {
 								mem['i'] = Integer.parseInt(sc.nextLine());
 							}
-						}else{
+						} else {
 							mem['i'] = Integer.parseInt(args[arg_index++]);
 						}
 						break;
@@ -241,19 +245,20 @@ public class Silos {
 						break;
 					case LOADLINE:
 						char[] in;
-						if(interactive){
-							if(tokens.length > 1){
-								in = getStringFromSTDIN(texts[tokens[1]],sc).toCharArray();
-							}else{
+						if (interactive) {
+							if (tokens.length > 1) {
+								in = getStringFromSTDIN(texts[tokens[1]], sc).toCharArray();
+							} else {
 								in = sc.nextLine().toCharArray();
 							}
-						}else{
+						} else {
 							in = args[arg_index++].toCharArray();
 						}
 						for (int i = 0, j = 256; i < in.length; i++, j++) {
 							mem[j] = in[i];
 						}
 						break;
+
 					case CANVAS:
 						if (interactive) {
 							Canvas.createCanvas(
@@ -334,9 +339,9 @@ public class Silos {
 				for (Drawable d : toDraw) {
 					g.setColor(d.color);
 					if (d.type == 1) {
-						g.fillOval(d.x,d.y,d.width,d.height);
-					}else{
-						g.fillRect(d.x,d.y,d.width,d.height);
+						g.fillOval(d.x, d.y, d.width, d.height);
+					} else {
+						g.fillRect(d.x, d.y, d.width, d.height);
 					}
 				}
 			}
@@ -458,37 +463,37 @@ public class Silos {
 					continue;
 				}
 				command = command.replaceAll("\\s+", " ");
-				if(command.charAt(0) == ' '){
+				if (command.charAt(0) == ' ') {
 					command = command.substring(1);
 				}
-				if(command.length() > 1){
-					switch(command.charAt(1)){
-					case '+':
-					case '-':
-					case '*':
-					case '/':
-					case '%':
-					case '^':
-					case '=':
-					case '|':
-						command = command.charAt(0) + " " + command.substring(1);
-						break;
+				if (command.length() > 1) {
+					switch (command.charAt(1)) {
+						case '+':
+						case '-':
+						case '*':
+						case '/':
+						case '%':
+						case '^':
+						case '=':
+						case '|':
+							command = command.charAt(0) + " " + command.substring(1);
+							break;
 					}
 				}
-				if(command.length() > 2){
-					switch(command.charAt(2)){
-					case '+':
-					case '-':
-					case '*':
-					case '/':
-					case '%':
-					case '^':
-					case '=':
-					case '|':
-						if(command.length() > 3 && command.charAt(3) != ' '){
-							command = command.substring(0,3) + " " + command.substring(3);
-						}
-						break;
+				if (command.length() > 2) {
+					switch (command.charAt(2)) {
+						case '+':
+						case '-':
+						case '*':
+						case '/':
+						case '%':
+						case '^':
+						case '=':
+						case '|':
+							if (command.length() > 3 && command.charAt(3) != ' ') {
+								command = command.substring(0, 3) + " " + command.substring(3);
+							}
+							break;
 					}
 				}
 				String[] words = command.split(" ");
@@ -604,6 +609,11 @@ public class Silos {
 					program.add(new int[]{Silos.PRINTINT + Silos.VARIABLE, (int) words[1].charAt(0)});
 					continue;
 				}
+				if (instruction.equals("printIntNoLine")) {
+					program.add(new int[]{Silos.PRINTINTNOLINE + Silos.VARIABLE, (int) words[1].charAt(0)});
+					continue;
+				}
+
 				if (instruction.equals("get")) {
 					int mode;
 					int argument;
