@@ -421,6 +421,7 @@ public class Silos {
 			ArrayList<String> texts = new ArrayList<>();
 			for (int i = 0; i < tokens.size(); i++) {
 				String command = tokens.get(i);
+				command = command.replaceAll("^\\s+", "");
 				if (command.startsWith("def") || command.startsWith("//")) {
 					continue;
 				}
@@ -462,7 +463,6 @@ public class Silos {
 					func_pos.add(program.size());
 					continue;
 				}
-				command = command.replaceAll("^\\s+", "");
 				String command_clone = new String(command);
 				command = command.replaceAll("\\s+", " ");
 				if (command.length() > 1) {
