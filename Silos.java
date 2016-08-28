@@ -462,10 +462,9 @@ public class Silos {
 					func_pos.add(program.size());
 					continue;
 				}
+				command = command.replaceAll("^\\s+", "");
+				String command_clone = new String(command);
 				command = command.replaceAll("\\s+", " ");
-				if (command.charAt(0) == ' ') {
-					command = command.substring(1);
-				}
 				if (command.length() > 1) {
 					switch (command.charAt(1)) {
 						case '+':
@@ -525,8 +524,8 @@ public class Silos {
 
 				//IO
 				if (instruction.equals("readIO")) {
-					if (command.length() > 7) {
-						String text = command.substring(7);
+					if (command_clone.length() > 7) {
+						String text = command_clone.substring(7);
 						int index = texts.indexOf(text);
 						if (index == -1) {
 							index = texts.size();
@@ -539,8 +538,8 @@ public class Silos {
 					continue;
 				}
 				if (instruction.equals("loadLine")) {
-					if (command.length() > 9) {
-						String text = command.substring(9);
+					if (command_clone.length() > 9) {
+						String text = command_clone.substring(9);
 						int index = texts.indexOf(text);
 						if (index == -1) {
 							index = texts.size();
@@ -553,8 +552,8 @@ public class Silos {
 					continue;
 				}
 				if (instruction.equals("print")) {
-					if (command.length() > 6) {
-						String text = command.substring(6);
+					if (command_clone.length() > 6) {
+						String text = command_clone.substring(6);
 						int index = texts.indexOf(text);
 						if (index == -1) {
 							index = texts.size();
@@ -567,8 +566,8 @@ public class Silos {
 					continue;
 				}
 				if (instruction.equals("printLine")) {
-					if (command.length() > 10) {
-						String text = command.substring(10);
+					if (command_clone.length() > 10) {
+						String text = command_clone.substring(10);
 						int index = texts.indexOf(text);
 						if (index == -1) {
 							index = texts.size();
