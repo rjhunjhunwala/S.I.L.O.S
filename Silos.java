@@ -250,7 +250,7 @@ public class Silos {
 						}else{
 							in = args[arg_index++].toCharArray();
 						}
-						for(int i=0,j=256;i<in.length;i++,j++){
+						for (int i = 0, j = 256; i < in.length; i++, j++) {
 							mem[j] = in[i];
 						}
 						break;
