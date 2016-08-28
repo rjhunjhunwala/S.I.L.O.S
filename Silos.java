@@ -60,7 +60,6 @@ public class Silos {
 	private final static int ASSIGN = 26 << 8;
 	private final static int NEWOBJ = 27 << 8;
 	private static final int MOVEOBJ = 28 << 8;
-  private static final int NOOP = 29<<8;
 	
 	private final static int INTEGER = 0;
 	private final static int VARIABLE = 1;
@@ -417,11 +416,7 @@ public class Silos {
 			ArrayList<String> texts = new ArrayList<>();
 			for (int i = 0; i < tokens.size(); i++) {
 				String command = tokens.get(i);
-				if(command.startsWith("//")){
-					program.add(new int[]{Silos.NOOP});
-				continue;
-				}
-				if (command.startsWith("def")) {
+				if (command.startsWith("def") || command.startsWith("//")) {
 					continue;
 				}
 				for (int j = 1; j < replace.length; j += 2) {
@@ -462,25 +457,9 @@ public class Silos {
 					func_pos.add(program.size());
 					continue;
 				}
-				if (command.startsWith("print ")) {
-					String text = command.substring(6);
-					int index = texts.indexOf(text);
-					if (index == -1) {
-						index = texts.size();
-						texts.add(text);
-					}
-					program.add(new int[]{Silos.PRINT, index});
-					continue;
-				}
-				if (command.startsWith("printLine ")) {
-					String text = command.substring(10);
-					int index = texts.indexOf(text);
-					if (index == -1) {
-						index = texts.size();
-						texts.add(text);
-					}
-					program.add(new int[]{Silos.PRINTLINE, index});
-					continue;
+				command = command.replaceAll("\\s+", " ");
+				if(command.charAt(0) == ' '){
+					command = command.substring(1);
 				}
 				if(command.length() > 1){
 					switch(command.charAt(1)){
@@ -492,21 +471,33 @@ public class Silos {
 					case '^':
 					case '=':
 					case '|':
-						if(command.length() <= 2 || command.charAt(2) == ' '){
-							command = command.charAt(0) + " " + command.substring(1);
-						}else{
-							command = command.charAt(0) + " " + command.charAt(1) + " " + command.substring(2);
+						command = command.charAt(0) + " " + command.substring(1);
+						break;
+					}
+				}
+				if(command.length() > 2){
+					switch(command.charAt(2)){
+					case '+':
+					case '-':
+					case '*':
+					case '/':
+					case '%':
+					case '^':
+					case '=':
+					case '|':
+						if(command.length() > 3 && command.charAt(3) != ' '){
+							command = command.substring(0,3) + " " + command.substring(3);
 						}
 						break;
 					}
 				}
-				String[] words = command.split(" +");
+				String[] words = command.split(" ");
 				if (words.length == 0) {
 					continue;
 				}
 
 				String instruction = words[0];
-				//labels
+				//control flows
 				if (instruction.equals("GOTO")) {
 					String label = words[1];
 					int index = label_temp.indexOf(label);
@@ -527,11 +518,7 @@ public class Silos {
 					continue;
 				}
 
-				//no arguments
-				if (instruction.equals("return")) {
-					program.add(new int[]{Silos.RETURN});
-					continue;
-				}
+				//IO
 				if (instruction.equals("readIO")) {
 					if (command.length() > 7) {
 						String text = command.substring(7);
@@ -560,6 +547,40 @@ public class Silos {
 					}
 					continue;
 				}
+				if (instruction.equals("print")) {
+					if (command.length() > 6) {
+						String text = command.substring(6);
+						int index = texts.indexOf(text);
+						if (index == -1) {
+							index = texts.size();
+							texts.add(text);
+						}
+						program.add(new int[]{Silos.PRINT, index});
+					} else {
+						program.add(new int[]{Silos.PRINT});
+					}
+					continue;
+				}
+				if (instruction.equals("printLine")) {
+					if (command.length() > 10) {
+						String text = command.substring(10);
+						int index = texts.indexOf(text);
+						if (index == -1) {
+							index = texts.size();
+							texts.add(text);
+						}
+						program.add(new int[]{Silos.PRINTLINE, index});
+					} else {
+						program.add(new int[]{Silos.PRINTLINE});
+					}
+					continue;
+				}
+
+				//no arguments
+				if (instruction.equals("return")) {
+					program.add(new int[]{Silos.RETURN});
+					continue;
+				}
 				if (instruction.equals("refresh")) {
 					program.add(new int[]{Silos.REFRESH});
 					continue;
@@ -577,33 +598,6 @@ public class Silos {
 						mode = Silos.VARIABLE;
 					}
 					program.add(new int[]{Silos.PRINTCHAR + mode, argument});
-					continue;
-				}
-				if (instruction.equals("newObj")) {
-					int mode1, mode2, mode3;
-					int arg1, arg2, arg3;
-					try {
-						arg1 = Integer.parseInt(words[1]);
-						mode1 = Silos.INTEGER;
-					} catch (Exception e) {
-						arg1 = (int) words[1].charAt(0);
-						mode1 = Silos.VARIABLE;
-					}
-					try {
-						arg2 = Integer.parseInt(words[2]);
-						mode2 = Silos.INTEGER;
-					} catch (Exception e) {
-						arg2 = (int) words[2].charAt(0);
-						mode2 = Silos.VARIABLE;
-					}
-					try {
-						arg3 = Integer.parseInt(words[3]);
-						mode3 = Silos.INTEGER;
-					} catch (Exception e) {
-						arg3 = (int) words[3].charAt(0);
-						mode3 = Silos.VARIABLE;
-					}
-					program.add(new int[]{Silos.NEWOBJ + (mode3 << 2) + (mode2 << 1) + (mode1), arg1, arg2, arg3});
 					continue;
 				}
 				if (instruction.equals("printInt")) {
@@ -743,6 +737,33 @@ public class Silos {
 						mode3 = Silos.VARIABLE;
 					}
 					program.add(new int[]{Silos.PEN + (mode3 << 2) + (mode2 << 1) + (mode1), arg1, arg2, arg3});
+					continue;
+				}
+				if (instruction.equals("newObj")) {
+					int mode1, mode2, mode3;
+					int arg1, arg2, arg3;
+					try {
+						arg1 = Integer.parseInt(words[1]);
+						mode1 = Silos.INTEGER;
+					} catch (Exception e) {
+						arg1 = (int) words[1].charAt(0);
+						mode1 = Silos.VARIABLE;
+					}
+					try {
+						arg2 = Integer.parseInt(words[2]);
+						mode2 = Silos.INTEGER;
+					} catch (Exception e) {
+						arg2 = (int) words[2].charAt(0);
+						mode2 = Silos.VARIABLE;
+					}
+					try {
+						arg3 = Integer.parseInt(words[3]);
+						mode3 = Silos.INTEGER;
+					} catch (Exception e) {
+						arg3 = (int) words[3].charAt(0);
+						mode3 = Silos.VARIABLE;
+					}
+					program.add(new int[]{Silos.NEWOBJ + (mode3 << 2) + (mode2 << 1) + (mode1), arg1, arg2, arg3});
 					continue;
 				}
 				if (instruction.equals("moveObj")) {
