@@ -209,7 +209,7 @@ Than you can create an object
 Please see the game.txt and gui.txt files in the examples folder for an explanation.
 #Keyboard Bindings
 At any point you can place a binding to certain characters
-<pre>bind intRepresentingChar1 heapSpot1 intOfChar2 heapSpot2 etcetera</pre> where intRepresentingChar is an integer literal or variable representing a char ((ascii convention used) 97 would mean 'a') and heapspot is an integer value of a valid spot on the heap. 
+<pre>bind intRepresentingChar1 heapSpot1 intOfChar2 heapSpot2 etcetera</pre> Where intRepresentingChar is an integer literal or variable representing a char ((ascii convention used) 97 would mean 'a') and heapspot is an integer value of a valid spot on the heap. 
 When the corresponding characters get typed (and a canvas has already been created) the corresponding heapspot will be set to one. <b>This feature only works on the desktop version when a canvas is in focus</b>
 #Please note that all interactivity including graphics support is unavailable on Try it Online! all input must be through command line arguments
 <pre>
