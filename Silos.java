@@ -395,7 +395,7 @@ public class Silos {
 			File textFile = new File(fileName);
 			Scanner sc = new Scanner(textFile);
 			while (sc.hasNextLine()) {
-				tokens.add(sc.nextLine());
+				tokens.add(sc.nextLine().replaceAll("^\\s+", ""));
 			}
 			sc.close();
 			List program = new ArrayList();
@@ -421,7 +421,6 @@ public class Silos {
 			ArrayList<String> texts = new ArrayList<>();
 			for (int i = 0; i < tokens.size(); i++) {
 				String command = tokens.get(i);
-				command = command.replaceAll("^\\s+", "");
 				if (command.startsWith("def")
 					|| command.startsWith("//")
 					|| command.startsWith("#")
