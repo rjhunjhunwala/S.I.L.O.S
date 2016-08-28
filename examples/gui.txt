@@ -10,12 +10,12 @@ bind 65 512 97 512 68 513 100 513 87 514 119 514 83 515 115 515
 y = 50
 x = 50
 //start the player at 50,50
+pen 255 0 0
+newObj 1 50 50
+moveObj 0 50 50
 :a
 //main game loop
-pen 255 255 255
-draw circle x y 50 50
-//erase the past player
-//alter the position of the player if necessary
+
 
 a = get 512
 if a b
@@ -49,9 +49,7 @@ y + 15
 set 515 0
 :c3
 
-//draw a new player
-pen 255 0 0
-draw circle x y 50 50
+moveObj 0 x y
 //refresh the screen
 refresh
 wait 15
