@@ -2,10 +2,7 @@
 S.I.L.O.S or SIL is designed for a nostalgic view of the past. It is simple and minimalistic, but remains capable of universal computation.
 Feel free to [try this language online](http://silos.tryitonline.net/#code=cHJpbnQgU2ltcGxlIEludGVycHJldGVkIExhbmd1YWdl&input=)! The interpreter is hosted by Dennis Mitchell. 
 <hr/>
-<pre> ____     __     __       __     ____ 
-/ ___)   (  )   (  )     /  \   / ___)
-\___ \ _  )(  _ / (_/\ _(  O )_ \___ \
-(____/(_)(__)(_)\____/(_)\__/(_)(____/</pre>
+## S.I.L.O.S
 S.I.L.O.S stands for.
 <pre>
 <b>S</b>uperb
@@ -15,10 +12,7 @@ S.I.L.O.S stands for.
 <b>S</b>uperior
 </pre>
 It is also known as SIL (Simple Interpreted Language)
-<pre> .----..-.  .-..-. .-. .---.  .--.  .-.  .-.
-{ {__   \ \/ / |  `| |{_   _}/ {} \  \ \/ / 
-.-._} }  }  {  | |\  |  | | /  /\  \ / /\ \ 
-`----'   `--'  `-' `-'  `-' `-'  `-'`-'  `-'</pre>
+## Syntax
 The syntax is simple
 <pre>
 //One command per line
@@ -42,17 +36,9 @@ a ^ 5
 //all assignment operators x - 5 is the equivalent of x-=5 for those familiar with C styled languages
 </pre>
 That is the basic syntax, note that as of this printing, integers are 32 bit signed integers [-1*2^31,2^31-1] which overflow and wrap around. 
-</br>There is a plan to make them big numbers
-<pre>
-  __  __                                   ____         __  __          
- |  \/  |                                 |  _ \       / _|/ _|         
- | \  / | ___ _ __ ___   ___  _ __ _   _  | |_) |_   _| |_| |_ ___ _ __ 
- | |\/| |/ _ \ '_ ` _ \ / _ \| '__| | | | |  _ <| | | |  _|  _/ _ \ '__|
- | |  | |  __/ | | | | | (_) | |  | |_| | | |_) | |_| | | | ||  __/ |   
- |_|  |_|\___|_| |_| |_|\___/|_|   \__, | |____/ \__,_|_| |_| \___|_|   
-                                    __/ |                               
-                                   |___/       
-</pre>
+</br>There is a plan to make them big numbers with unbounded size.
+## Memory Buffer
+
 You can directly write to the memory buffer like such
 <pre>
 set 288 57
@@ -74,16 +60,7 @@ c = get b
 printInt c
 </pre>
 Remember please be careful to not use any positions below 256 on the array as these can be used for ascii variable names, touch these at great peril
-<pre>
- ___               ___      ________     
-|\  \             /  /|    |\   __  \    
-\ \  \           /  //     \ \  \|\  \   
- \ \  \         /  //       \ \  \\\  \  
-  \ \  \       /  //         \ \  \\\  \ 
-   \ \__\     /_ //           \ \_______\
-    \|__|    |__|/             \|_______|
-                                         
-</pre>
+## IO
 input and output is done like so
 <pre>readIO SOME PROMPT FOR THE USER</pre>
 the magical interpreter thus prints out SOME PROMPT FOR THE USER  and stores the value in the variable i
@@ -99,26 +76,15 @@ printLine a
 print a
 //prints out "a" with no trailing new line
 printChar x prints out the value of x as a character
-</pre>                                                                         
-<pre>                                                        ______                        
-|`````````,       .'.       |..          | |``````.   .~      ~.        .'. .`.       
-|'''|'''''      .''```.     |  ``..      | |       | |          |     .'   `   `.     
-|    `.       .'       `.   |      ``..  | |       | |          |   .'           `.   
-|      `.   .'           `. |          ``| |......'   `.______.'  .'               `. 
-</pre>                                                                                                                                                             
+</pre>
+
+## Entropy                                                                                                                                                    
 the randomness is provided by a prng currently the
 prng is provided courtesy of Oracle and uses the system time as a seed
 <pre>rand x</pre>
 gets a random number [0,x) 0 inclusive to max exclusive and stores it in the variable r
 max may also be a literal like 12
-<pre>
-___________                   __  .__                      
-\_   _____/_ __  ____   _____/  |_|__| ____   ____   ______
- |    __)|  |  \/    \_/ ___\   __\  |/  _ \ /    \ /  ___/
- |     \ |  |  /   |  \  \___|  | |  (  <_> )   |  \\___ \ 
- \___  / |____/|___|  /\___  >__| |__|\____/|___|  /____  >
-     \/             \/     \/                    \/     \/ 
-</pre>
+## Functions
 See the usage of functions in functions.txt to better comperehend it, but here is the basics. Function should be declared as
 such
 <pre>
@@ -141,14 +107,7 @@ Ideally functions should have only one return statement.
 
 As of this printing functions can only be void and have no return type. 
 <pre>
-_______________________________
-      __                       
-    /    )              /      
-----\------_/_---------/----__-
-     \     /    /   / /   /___)
-_(____/___(_ __(___/_/___(___ _
-                  /            
-              (_ /        
+## Style
 </pre>
 the first line is used by the interpreter to allocate the size of the array (heap) this number should be at least 256
 if you omit this line the interpretter will just allocate 8192 slots in its memory for its future use
@@ -213,16 +172,4 @@ At any point you can place a binding to certain characters
 When the corresponding characters get typed (and a canvas has already been created) the corresponding heapspot will be set to one. <b>This feature only works on the desktop version when a canvas is in focus</b>
 <hr/>
 <h1><b>Please note that all interactivity including graphics support is unavailable on Try it Online! all input must be through command line arguments</b></h1>
-<pre>
- .----------------.  .-----------------. .----------------.  .----------------.  .----------------. 
-| .--------------. || .--------------. || .--------------. || .--------------. || .--------------. |
-| |  _________   | || | ____  _____  | || |     _____    | || |     ____     | || |  ____  ____  | |
-| | |_   ___  |  | || ||_   \|_   _| | || |    |_   _|   | || |   .'    `.   | || | |_  _||_  _| | |
-| |   | |_  \_|  | || |  |   \ | |   | || |      | |     | || |  /  .--.  \  | || |   \ \  / /   | |
-| |   |  _|  _   | || |  | |\ \| |   | || |   _  | |     | || |  | |    | |  | || |    \ \/ /    | |
-| |  _| |___/ |  | || | _| |_\   |_  | || |  | |_' |     | || |  \  `--'  /  | || |    _|  |_    | |
-| | |_________|  | || ||_____|\____| | || |  `.___.'     | || |   `.____.'   | || |   |______|   | |
-| |              | || |              | || |              | || |              | || |              | |
-| '--------------' || '--------------' || '--------------' || '--------------' || '--------------' |
- '----------------'  '----------------'  '----------------'  '----------------'  '----------------' 
-</pre>
+
