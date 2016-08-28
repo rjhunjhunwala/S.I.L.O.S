@@ -422,7 +422,12 @@ public class Silos {
 			for (int i = 0; i < tokens.size(); i++) {
 				String command = tokens.get(i);
 				command = command.replaceAll("^\\s+", "");
-				if (command.startsWith("def") || command.startsWith("//")) {
+				if (command.startsWith("def")
+					|| command.startsWith("//")
+					|| command.startsWith("#")
+					|| command.startsWith("*")
+					|| command.startsWith("/*")
+				) {
 					continue;
 				}
 				for (int j = 1; j < replace.length; j += 2) {
