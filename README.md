@@ -135,6 +135,7 @@ As of 8/24/2016 SIL has new, improved input, here are the new features
 //This shows the new features of SIL
 def p print load loadLine : lbl
 //With the new "illiterate preprocessor" (tm) the above statement (which must appear on the second line) defines any number of macros in the form of def string replace string2 replace
+
 p Hello,
 pLine  World!
 pSee
@@ -143,6 +144,7 @@ a = 5
 pInt a
 //loading the next line of stdin as a string is easy.
 load testing!
+//the loadLine command will take one line (either one single command line argument on TIO, or STDIN on java and loads it in starting at the 256th heap spot and working out)
 //look the macro now will allow : to work as a label
 a = 256
 :a
