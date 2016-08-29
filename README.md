@@ -144,7 +144,7 @@ a = 5
 pInt a
 //loading the next line of stdin as a string is easy.
 load testing!
-//the loadLine command will take one line (either one single command line argument on TIO, or STDIN on java and loads it in starting at the 256th heap spot and working out)
+//the loadLine command will take one line (either one single command line argument on TIO (Try it Online!), or STDIN on java and loads it in starting at the 256th heap spot and working out)
 //look the macro now will allow : to work as a label
 a = 256
 :a
