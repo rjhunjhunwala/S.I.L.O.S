@@ -57,10 +57,17 @@ public class Silos {
 	private final static int MOD = 23 << 8;
 	private final static int ABS = 24 << 8;
 	private final static int POW = 25 << 8;
-	private final static int ASSIGN = 26 << 8;
-	private final static int NEWOBJ = 27 << 8;
-	private static final int MOVEOBJ = 28 << 8;
-	private static final int PRINTINTNOLINE = 29 << 8;
+	private final static int AND = 26 << 8;
+	private final static int OR = 27 << 8;
+	private final static int XOR = 28 << 8;
+	private final static int XNOR = 29 << 8;
+	private final static int NOT = 30 << 8;
+	private final static int LSHIFT = 31 << 8;
+	private final static int RSHIFT = 32 << 8;
+	private final static int ASSIGN = 33 << 8;
+	private final static int NEWOBJ = 34 << 8;
+	private static final int MOVEOBJ = 35 << 8;
+	private static final int PRINTINTNOLINE = 36 << 8;
 
 	private final static int INTEGER = 0;
 	private final static int VARIABLE = 1;
@@ -225,6 +232,27 @@ public class Silos {
 						break;
 					case ABS:
 						mem[tokens[1]] = Math.abs(mem[tokens[1]]);
+						break;
+					case AND:
+						mem[tokens[1]] &= evalToken(tokens[0], tokens[2], 0);
+						break;
+					case OR:
+						mem[tokens[1]] |= evalToken(tokens[0], tokens[2], 0);
+						break;
+					case XOR:
+						mem[tokens[1]] ^= evalToken(tokens[0], tokens[2], 0);
+						break;
+					case XNOR:
+						mem[tokens[1]] ^=~ evalToken(tokens[0], tokens[2], 0);
+						break;
+					case NOT:
+						mem[tokens[1]] =~ mem[tokens[1]]
+						break;
+					case LSHIFT:
+						mem[tokens[1]] <<= evalToken(tokens[0], tokens[2], 0);
+						break;
+					case RSHIFT: //signed right-shift
+						mem[tokens[1]] >>= evalToken(tokens[0], tokens[2], 0);
 						break;
 					case SET:
 						mem[evalToken(tokens[0], tokens[1], 0)] = evalToken(tokens[0], tokens[2], 1);
@@ -479,6 +507,13 @@ public class Silos {
 						case '^':
 						case '=':
 						case '|':
+						case '&':
+						case ':':
+						case '!':
+						case '?':
+						case '~':
+						case '<':
+						case '>':
 							command = command.charAt(0) + " " + command.substring(1);
 							break;
 					}
@@ -493,6 +528,13 @@ public class Silos {
 						case '^':
 						case '=':
 						case '|':
+						case '&':
+						case ':':
+						case '!':
+						case '?':
+						case '~':
+						case '<':
+						case '>':
 							if (command.length() > 3 && command.charAt(3) != ' ') {
 								command = command.substring(0, 3) + " " + command.substring(3);
 							}
@@ -903,9 +945,30 @@ public class Silos {
 					case '=':
 						instr = Silos.ASSIGN;
 						break;
+					case '&':
+						instr = Silos.AND;
+						break;
+					case ':':
+						instr = Silos.OR;
+						break;
+					case '!':
+						instr = Silos.XOR;
+						break;
+					case '?':
+						instr = Silos.XNOR;
+						break;
+					case '~':
+						instr = Silos.NOT;
+						break;
+					case '<':
+						instr = Silos.LSHIFT;
+						break;
+					case '>':
+						instr = Silos.RSHIFT;
+						break;
 				}
 				if (instr >= 0) {
-					if (instr == Silos.ABS) {
+					if (instr == Silos.ABS || instr == Silos.NOT) {
 						program.add(new int[]{instr, arg1});
 					} else if (instr == Silos.ASSIGN) {
 						try {
