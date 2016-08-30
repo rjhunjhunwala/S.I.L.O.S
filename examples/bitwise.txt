@@ -9,7 +9,7 @@ c&b
 printInt c
 
 c=a
-c|b
+c:b
 printInt c
 
 c=a
