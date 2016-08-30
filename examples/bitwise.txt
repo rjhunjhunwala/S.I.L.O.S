@@ -25,7 +25,7 @@ c~
 printInt c
 
 c=a
-c<a
+c<b
 printInt c
 
 c=a
