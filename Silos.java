@@ -246,7 +246,7 @@ public class Silos {
 						mem[tokens[1]] ^=~ evalToken(tokens[0], tokens[2], 0);
 						break;
 					case NOT:
-						mem[tokens[1]] =~ mem[tokens[1]]
+						mem[tokens[1]] =~ mem[tokens[1]];
 						break;
 					case LSHIFT:
 						mem[tokens[1]] <<= evalToken(tokens[0], tokens[2], 0);
