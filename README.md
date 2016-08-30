@@ -32,7 +32,15 @@ a * 5
 a /  5
 a % 5
 a | //absolute value of a and reassigns this to 
+a ~ bitwise not
+a < b left shift
+a > b right shift
+a & b bitwise and
+a : b or
+a ! b xor
+a ? b xnor
 a ^ 5
+
 //all assignment operators x - 5 is the equivalent of x-=5 for those familiar with C styled languages
 </pre>
 That is the basic syntax, note that as of this printing, integers are 32 bit signed integers [-1*2^31,2^31-1] which overflow and wrap around. 
@@ -172,7 +180,7 @@ Than you can create an object
 <pre>moveObj index x y</pre> will move an object to a designated location.
 <pre>refresh</pre> is a mandatory command to be invoked once you have moved the objects around. refresh is the only way to actually trigger the painting. 
 Please see the game.txt and gui.txt files in the examples folder for an explanation.
-#Keyboard Bindings
+<h1>Keyboard Bindings</h1
 At any point you can place a binding to certain characters
 <pre>bind intRepresentingChar1 heapSpot1 intOfChar2 heapSpot2 etcetera</pre> Where intRepresentingChar is an integer literal or variable representing a char ((ascii convention used) 97 would mean 'a') and heapspot is an integer value of a valid spot on the heap. 
 When the corresponding characters get typed (and a canvas has already been created) the corresponding heapspot will be set to one. <b>This feature only works on the desktop version when a canvas is in focus</b>
@@ -180,4 +188,5 @@ When the corresponding characters get typed (and a canvas has already been creat
 <h1>Whitespace</h1>
 Most whitespace dependency is gone. The only necessary whitespace separates arguments and the new lines between commands. 
 All lines are now indentable!
+<h2>Bitwise operators now have support. Please view the bitwise.txt document for a full rundown </h2>
 <h1><b>Please note that all interactivity including graphics support is unavailable on Try it Online! all input must be through command line arguments</b></h1>
