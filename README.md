@@ -26,11 +26,11 @@ GOTO Foo
 No syntax checking
 VB like behavior allowing erros to pass unnoticed and unhandled
 if x Foo //goes to Foo iff x>0
-a - 5
-a + 5
-a * 5
-a /  5
-a % 5
+a - b subtraction
+a + b addition
+a * b multiplication
+a / b division
+a % b modulus
 a | //absolute value of a and reassigns this to 
 a ~ bitwise not
 a < b left shift
@@ -39,7 +39,7 @@ a & b bitwise and
 a : b or
 a ! b xor
 a ? b xnor
-a ^ 5
+a ^ b a raised to the b
 
 //all assignment operators x - 5 is the equivalent of x-=5 for those familiar with C styled languages
 </pre>
