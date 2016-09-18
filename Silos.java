@@ -24,7 +24,6 @@ import javax.swing.JPanel;
  * @author rohan
  */
 public class Silos {
-static boolean safeModeEnabled = true;
 	/**
 	 * This integer[] represents the heap of memory which can be addressed
 	 */
@@ -136,24 +135,23 @@ static boolean safeModeEnabled = true;
 			height = inHeight;
 		}
 	}
-public static final String IDEFileName = "TEMPFILE_1518259122315123_SILOS_V";
+public static String IDEFileName = "234567890-45678900ihb567890oijhb213dsa_TempFILE_v";
 	/**
 	 * The main interpretation code
 	 *
 	 * @param args the command line arguments to be passed from the online
 	 * interpreter the first argument represents a fileName, and the rest
 	 * represent a source of input Feeding in any number of command line arguments
-	 * will generally disable interactivity. Interactivity can be forced enabled by
-	 * Toggling safeMOdeEnabled into false
+	 * will generally disable interactivity. 
 	 */
+
 	public static void main(String... args) {
 		Stack<Integer> stack = new Stack<>();
 		Scanner sc = new Scanner(System.in);
 		boolean interactive = (args.length == 0);
-				interactive|=!safeModeEnabled;
+	
 				
 		int[][] program = compile(args.length==0?getStringFromSTDIN("FileName?", sc):args[0]);
-		
 		if(args.length==1){
 			if(args[0].equals(IDEFileName)){
 				interactive = true;
@@ -1054,7 +1052,7 @@ public static final String IDEFileName = "TEMPFILE_1518259122315123_SILOS_V";
 		}
 		return null;
 	}
-
+public static String program = "";
 	/**
 	 * Evaluates a token by figuring out whether it is an integer literal or a
 	 * variable
