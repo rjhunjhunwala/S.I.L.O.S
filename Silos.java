@@ -1,6 +1,6 @@
 /*
  *Feel free to modify and distribute the code and all relevant documentation
-* This code is provided as is and the author
+ * This code is provided as is and the author
  */
 
 import java.awt.Color;
@@ -9,8 +9,11 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Queue;
 import java.util.Scanner;
 import java.util.Stack;
 import java.util.logging.Level;
@@ -24,6 +27,11 @@ import javax.swing.JPanel;
  * @author rohan
  */
 public class Silos {
+
+	public static final int SIZE = 32;
+	public static final Stack<Integer>[] stacks = new Stack[SIZE];
+	public static final ArrayDeque<Integer>[] q = new ArrayDeque[SIZE];
+
 	/**
 	 * This integer[] represents the heap of memory which can be addressed
 	 */
@@ -67,6 +75,10 @@ public class Silos {
 	private final static int NEWOBJ = 34 << 8;
 	private static final int MOVEOBJ = 35 << 8;
 	private static final int PRINTINTNOLINE = 36 << 8;
+	private static final int STACK = 37 << 8;
+	private static final int QUEUE = 38 << 8;
+	private static final int STACK_POP = 39 << 8;
+	private static final int QUEUE_POP = 40 << 8;
 
 	private final static int INTEGER = 0;
 	private final static int VARIABLE = 1;
@@ -135,29 +147,32 @@ public class Silos {
 			height = inHeight;
 		}
 	}
-public static String IDEFileName = "234567890-45678900ihb567890oijhb213dsa_TempFILE_v";
+	public static String IDEFileName = "234567890-45678900ihb567890oijhb213dsa_TempFILE_v";
+
 	/**
 	 * The main interpretation code
 	 *
 	 * @param args the command line arguments to be passed from the online
-	 * interpreter the first argument represents a fileName, and the rest
-	 * represent a source of input Feeding in any number of command line arguments
-	 * will generally disable interactivity. 
+	 * interpreter the first argument represents a fileName, and the rest represent
+	 * a source of input Feeding in any number of command line arguments will
+	 * generally disable interactivity.
 	 */
-
 	public static void main(String... args) {
+		for (int i = 0; i < SIZE; i++) {
+			q[i] = new ArrayDeque<Integer>();
+			stacks[i] = new Stack<Integer>();
+		}
 		Stack<Integer> stack = new Stack<>();
 		Scanner sc = new Scanner(System.in);
 		boolean interactive = (args.length == 0);
-	
-				
-		int[][] program = compile(args.length==0?getStringFromSTDIN("FileName?", sc):args[0]);
-		if(args.length==1){
-			if(args[0].equals(IDEFileName)){
+
+		int[][] program = compile(args.length == 0 ? getStringFromSTDIN("FileName?", sc) : args[0]);
+		if (args.length == 1) {
+			if (args[0].equals(IDEFileName)) {
 				interactive = true;
 			}
 		}
-		
+
 		int arg_index = 1;
 		int ptr = 0;
 		int length = program.length;
@@ -217,6 +232,22 @@ public static String IDEFileName = "234567890-45678900ihb567890oijhb213dsa_TempF
 					case ASSIGN:
 						mem[tokens[1]] = evalToken(tokens[0], tokens[2], 0);
 						break;
+					case STACK:
+
+						stacks[evalToken(tokens[0], tokens[1], 0)].push(evalToken(tokens[0], tokens[2], 1));
+	
+						break;
+					case QUEUE:
+
+						q[evalToken(tokens[0], tokens[1], 0)].add(evalToken(tokens[0], tokens[2], 1));
+						
+						break;
+					case QUEUE_POP:
+						mem['m'] = q[evalToken(tokens[0], tokens[1], 0)].isEmpty()?0:q[evalToken(tokens[0], tokens[1], 0)].remove();
+						break;
+					case STACK_POP:
+						mem['m'] = stacks[evalToken(tokens[0], tokens[1], 0)].isEmpty()?0:stacks[evalToken(tokens[0], tokens[1], 0)].pop();
+						break;
 					case GET:
 						mem[tokens[1]] = mem[evalToken(Silos.INTEGER, evalToken(tokens[0], tokens[2], 0), 0)];
 						break;
@@ -251,10 +282,10 @@ public static String IDEFileName = "234567890-45678900ihb567890oijhb213dsa_TempF
 						mem[tokens[1]] ^= evalToken(tokens[0], tokens[2], 0);
 						break;
 					case XNOR:
-						mem[tokens[1]] ^=~ evalToken(tokens[0], tokens[2], 0);
+						mem[tokens[1]] ^= ~evalToken(tokens[0], tokens[2], 0);
 						break;
 					case NOT:
-						mem[tokens[1]] =~ mem[tokens[1]];
+						mem[tokens[1]] = ~mem[tokens[1]];
 						break;
 					case LSHIFT:
 						mem[tokens[1]] <<= evalToken(tokens[0], tokens[2], 0);
@@ -298,9 +329,9 @@ public static String IDEFileName = "234567890-45678900ihb567890oijhb213dsa_TempF
 					case CANVAS:
 						if (interactive) {
 							Canvas.createCanvas(
-								evalToken(tokens[0], tokens[1], 0),
-								evalToken(tokens[0], tokens[2], 1),
-								texts[tokens[3]]
+															evalToken(tokens[0], tokens[1], 0),
+															evalToken(tokens[0], tokens[2], 1),
+															texts[tokens[3]]
 							);
 						}
 						break;
@@ -332,9 +363,9 @@ public static String IDEFileName = "234567890-45678900ihb567890oijhb213dsa_TempF
 					case PEN:
 						if (Canvas.createdCanvas) {
 							Canvas.pen = new Color(
-								evalToken(tokens[0], tokens[1], 0),
-								evalToken(tokens[0], tokens[2], 1),
-								evalToken(tokens[0], tokens[3], 2)
+															evalToken(tokens[0], tokens[1], 0),
+															evalToken(tokens[0], tokens[2], 1),
+															evalToken(tokens[0], tokens[3], 2)
 							);
 						}
 						break;
@@ -458,11 +489,10 @@ public static String IDEFileName = "234567890-45678900ihb567890oijhb213dsa_TempF
 			for (int i = 0; i < tokens.size(); i++) {
 				String command = tokens.get(i);
 				if (command.startsWith("def")
-					|| command.startsWith("//")
-					|| command.startsWith("#")
-					|| command.startsWith("*")
-					|| command.startsWith("/*")
-				) {
+												|| command.startsWith("//")
+												|| command.startsWith("#")
+												|| command.startsWith("*")
+												|| command.startsWith("/*")) {
 					continue;
 				}
 				for (int j = 1; j < replace.length; j += 2) {
@@ -666,6 +696,33 @@ public static String IDEFileName = "234567890-45678900ihb567890oijhb213dsa_TempF
 					program.add(new int[]{Silos.PRINTINTNOLINE + Silos.VARIABLE, (int) words[1].charAt(0)});
 					continue;
 				}
+				if (instruction.equals("stackPop")) {
+					int mode;
+					int argument;
+					try {
+						argument = Integer.parseInt(words[1]);
+						mode = Silos.INTEGER;
+					} catch (Exception e) {
+						argument = (int) words[1].charAt(0);
+						mode = Silos.VARIABLE;
+					}
+										program.add(new int[]{Silos.STACK_POP + mode, argument});
+					continue;
+				}
+								if (instruction.equals("queuePop")) {
+					int mode;
+					int argument;
+					try {
+						argument = Integer.parseInt(words[1]);
+						mode = Silos.INTEGER;
+					} catch (Exception e) {
+						argument = (int) words[1].charAt(0);
+						mode = Silos.VARIABLE;
+					}
+										program.add(new int[]{Silos.QUEUE_POP + mode, argument});
+					continue;
+				}
+				
 
 				if (instruction.equals("get")) {
 					int mode;
@@ -745,6 +802,46 @@ public static String IDEFileName = "234567890-45678900ihb567890oijhb213dsa_TempF
 						mode2 = Silos.VARIABLE;
 					}
 					program.add(new int[]{Silos.SET + (mode2 << 1) + (mode1), arg1, arg2});
+					continue;
+				}
+				if (instruction.equals("stack")) {
+					int mode1, mode2;
+					int arg1, arg2;
+					try {
+						arg1 = Integer.parseInt(words[1]);
+						mode1 = Silos.INTEGER;
+					} catch (Exception e) {
+						arg1 = (int) words[1].charAt(0);
+						mode1 = Silos.VARIABLE;
+					}
+					try {
+						arg2 = Integer.parseInt(words[2]);
+						mode2 = Silos.INTEGER;
+					} catch (Exception e) {
+						arg2 = (int) words[2].charAt(0);
+						mode2 = Silos.VARIABLE;
+					}
+					program.add(new int[]{Silos.STACK + (mode2 << 1) + (mode1), arg1, arg2});
+					continue;
+				}
+				if (instruction.equals("queue")) {
+					int mode1, mode2;
+					int arg1, arg2;
+					try {
+						arg1 = Integer.parseInt(words[1]);
+						mode1 = Silos.INTEGER;
+					} catch (Exception e) {
+						arg1 = (int) words[1].charAt(0);
+						mode1 = Silos.VARIABLE;
+					}
+					try {
+						arg2 = Integer.parseInt(words[2]);
+						mode2 = Silos.INTEGER;
+					} catch (Exception e) {
+						arg2 = (int) words[2].charAt(0);
+						mode2 = Silos.VARIABLE;
+					}
+					program.add(new int[]{Silos.QUEUE + (mode2 << 1) + (mode1), arg1, arg2});
 					continue;
 				}
 
@@ -1052,7 +1149,8 @@ public static String IDEFileName = "234567890-45678900ihb567890oijhb213dsa_TempF
 		}
 		return null;
 	}
-public static String program = "";
+	public static String program = "";
+
 	/**
 	 * Evaluates a token by figuring out whether it is an integer literal or a
 	 * variable
