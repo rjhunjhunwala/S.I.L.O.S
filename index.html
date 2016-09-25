@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>S.i.l.o.s by rjhunjhunwala</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">S.i.l.o.s</h1>
+      <h2 class="project-tagline">S.I.L.O.S aka SIL the &quot;Simple Interpreted Language&quot; for a modern age. </h2>
+      <a href="https://github.com/rjhunjhunwala/S.I.L.O.S" class="btn">View on GitHub</a>
+      <a href="https://github.com/rjhunjhunwala/S.I.L.O.S/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/rjhunjhunwala/S.I.L.O.S/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="silos" class="anchor" href="#silos" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>S.I.L.O.S</h1>
+
+<p>S.I.L.O.S or SIL is designed for a nostalgic view of the past. It is simple and minimalistic, but remains capable of universal computation.
+Feel free to <a href="http://silos.tryitonline.net/#code=cHJpbnQgU2ltcGxlIEludGVycHJldGVkIExhbmd1YWdl&amp;input=">try this language online</a>! The interpreter is hosted by Dennis Mitchell. </p>
+
+<hr>
+
+<h2>
+<a id="-silos-" class="anchor" href="#-silos-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a> S.I.L.O.S </h2>
+
+<p>S.I.L.O.S stands for.</p>
+
+<pre>
+<b>S</b>uperb
+<b>I</b>nterpreted
+<b>L</b>anguage's
+<b>O</b>bviously
+<b>S</b>uperior
+</pre>
+
+<p>It is also known as SIL (Simple Interpreted Language)</p>
+
+<h2>
+<a id="-syntax-" class="anchor" href="#-syntax-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a> Syntax </h2>
+
+<p>The syntax is simple</p>
+
+<pre>
+//One command per line
+//one letter variable names
+//Only type integer 
+//No declaration needed they all start at 0
+//direct access to the memory array 
+a = get 5
+lblFoo
+GOTO Foo
+No syntax checking
+VB like behavior allowing erros to pass unnoticed and unhandled
+if x Foo //goes to Foo iff x&gt;0
+a - b subtraction
+a + b addition
+a * b multiplication
+a / b division
+a % b modulus
+a | //absolute value of a and reassigns this to 
+a ~ bitwise not
+a &lt; b left shift
+a &gt; b right shift
+a &amp; b bitwise and
+a : b or
+a ! b xor
+a ? b xnor
+a ^ b a raised to the b
+
+//all assignment operators x - 5 is the equivalent of x-=5 for those familiar with C styled languages
+</pre>
+
+<p>That is the basic syntax, note that as of this printing, integers are 32 bit signed integers [-1*2^31,2^31-1] which overflow and wrap around. 
+There is a plan to make them big numbers with unbounded size.</p>
+
+<h2>
+<a id="-memory-buffer-" class="anchor" href="#-memory-buffer-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a> Memory Buffer </h2>
+
+<p>You can directly write to the memory buffer like such</p>
+
+<pre>
+set 288 57
+//acccesses the heap at 288 and sets it to 57
+a = get 288
+//gets back what the thing at position 288
+printInt a
+set a 88
+//sets the thing at position a to 88
+b = get a
+//gets the thing at position a and sets it in the value of b
+printInt b
+printIntNoLine a
+printLine
+a + 10
+b + 11
+set b a
+//sets what is at b's position to a
+c = get b
+//gets the number from above
+printInt c
+</pre>
+
+<p>Remember please be careful to not use any positions below 256 on the array as these can be used for ascii variable names, touch these at great peril</p>
+
+<h2>
+<a id="io" class="anchor" href="#io" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>IO</h2>
+
+<p>input and output is done like so</p>
+
+<pre>readIO SOME PROMPT FOR THE USER</pre>
+
+<p>the magical interpreter thus prints out SOME PROMPT FOR THE USER  and stores the value in the variable i
+NOTE that for the onlne version it is imperative you avoid the use of this command. All prompts are disabled in the online version, so</p>
+
+<pre>printLine SOME PROMPT</pre>
+
+<p>and then</p>
+
+<pre>readIO :</pre>
+
+<p>Printing is done with three commands</p>
+
+<pre>printInt a
+//prints out the value of a with a trailing newline
+printLine a
+//prints out "a" with a trailing newline
+print a
+//prints out "a" with no trailing new line
+printChar x prints out the value of x as a character
+</pre>
+
+<h2>
+<a id="-entropy-" class="anchor" href="#-entropy-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a> Entropy </h2>                                                                                                                                                    
+
+<p>the randomness is provided by a prng currently the
+prng is provided courtesy of Oracle and uses the system time as a seed</p>
+
+<pre>rand x</pre>
+
+<p>gets a random number [0,x) 0 inclusive to max exclusive and stores it in the variable r
+max may also be a literal like 12</p>
+
+<h2>
+<a id="-functions-" class="anchor" href="#-functions-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a> Functions </h2>
+
+<p>See the usage of functions in functions.txt to better comperehend it, but here is the basics. Function should be declared as
+such</p>
+
+<pre>
+GOTO endOfAllFunctions
+funcfunctionname
+//code the function here
+return
+funcsomeFunc
+return
+lblendOfAllFunctions
+</pre>
+
+<p>now at any point in the code you may calll the function named functionname as such</p>
+
+<pre>
+GOSUB functionname
+</pre>
+
+<p>The stack is automagically handled works similar to most languages. However one must  be cuatious of properly enclosing the function safely with returns.
+Also ensure to jump around the functions with the Goto's otherwise all the functions will run.</p>
+
+<p>Ideally functions should have only one return statement.</p>
+
+<p>As of this printing functions can only be void and have no return type. </p>
+
+<h2>
+<a id="-style-" class="anchor" href="#-style-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a> Style </h2>
+
+<p>the first line is used by the interpreter to allocate the size of the array (heap) this number should be at least 256
+if you omit this line the interpretter will just allocate 8192 slots in its memory for its future use
+you are allowed to use single character identifiiers</p>
+
+<pre>1 = 5
+printInt 1
+//prints five
+print 1
+//1</pre>
+But never do this unless it is for obfuscation purposes the compiler will struggle with resolving what you are talking about
+also as far as commenting goes the compiler will ignore non code thus
+<pre>
+this is a comment
+</pre>
+
+<p>is valid syntax
+but don't abuse this as</p>
+
+<pre>1 = foo</pre>
+
+<p>could break your code
+instead // is recommended to start all comments
+lastly as input and randomness are stored into the variables i and r when requested it is recommended that you reserve these
+variables for that use
+As of 8/24/2016 SIL has new, improved input, here are the new features</p>
+
+<pre>
+<h1>
+<a id="silos-15" class="anchor" href="#silos-15" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>S.I.L.O.S 1.5</h1>
+//This shows the new features of SIL
+def p print load loadLine : lbl
+//With the new "illiterate preprocessor" (tm) the above statement (which must appear on the second line) defines any number of macros in the form of def string replace string2 replace
+
+p Hello,
+pLine  World!
+pSee
+pLine!
+a = 5
+pInt a
+//loading the next line of stdin as a string is easy.
+load testing!
+//the loadLine command will take one line (either one single command line argument on TIO (Try it Online!), or STDIN on java and loads it in starting at the 256th heap spot and working out)
+//look the macro now will allow : to work as a label
+a = 256
+:a
+x = get a
+printInt x
+if x continue
+GOTO end
+:continue
+pChar x
+a + 1
+if x a
+:end
+</pre>
+
+<hr>
+
+<h1>
+<a id="graphics" class="anchor" href="#graphics" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Graphics</h1> 
+
+<p>Support for Graphical Output has been added in SILOS 2.0. SILOS 2.0 comes primarily with support for graphics, but also features I highly optimized interpreter (<b>thanks to  kckennylau!</b>), and a </p><pre>wait x</pre> command which as the name would suggest, waits x milliseconds. Now, let's take a look at how graphical output works. 
+
+<pre>canvas width height wordForTheHeader</pre>
+
+<p>You first must use the above command to declare a canvas
+THan you must decide to create objects
+Each object will be in the current pen color.
+THe pen color gets set with 
+</p><pre>pen r g b</pre> where r g and b are variables represent red green and blue values of a color (of any name) or integer literals.
+Than you can create an object
+<pre>newObj type height width</pre> a square is type 0 an elipse is type one. Height and width and type are all variables/integer literals. This will add a new object to the drawable list. This list is zero indexed.
+<pre>moveObj index x y</pre> will move an object to a designated location.
+<pre>refresh</pre> is a mandatory command to be invoked once you have moved the objects around. refresh is the only way to actually trigger the painting. 
+Please see the game.txt and gui.txt files in the examples folder for an explanation.
+
+<h1>
+<a id="keyboard-bindings" class="anchor" href="#keyboard-bindings" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Keyboard Bindings</h1>bind intRepresentingChar1 heapSpot1 intOfChar2 heapSpot2 etcetera Where intRepresentingChar is an integer literal or variable representing a char ((ascii convention used) 97 would mean 'a') and heapspot is an integer value of a valid spot on the heap. 
+When the corresponding characters get typed (and a canvas has already been created) the corresponding heapspot will be set to one. <b>This feature only works on the desktop version when a canvas is in focus</b>
+<hr>
+<h1>
+<a id="whitespace" class="anchor" href="#whitespace" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Whitespace</h1>
+
+<p>Most whitespace dependency is gone. The only necessary whitespace separates arguments and the new lines between commands. 
+All lines are now indentable!</p>
+
+<h2>
+<a id="bitwise-operators-now-have-support-please-view-the-bitwisetxt-document-for-a-full-rundown-" class="anchor" href="#bitwise-operators-now-have-support-please-view-the-bitwisetxt-document-for-a-full-rundown-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Bitwise operators now have support. Please view the bitwise.txt document for a full rundown </h2>
+
+<h1>
+<a id="please-note-that-all-interactivity-including-graphics-support-is-unavailable-on-try-it-online-all-input-must-be-through-command-line-arguments" class="anchor" href="#please-note-that-all-interactivity-including-graphics-support-is-unavailable-on-try-it-online-all-input-must-be-through-command-line-arguments" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><b>Please note that all interactivity including graphics support is unavailable on Try it Online! all input must be through command line arguments</b>
+</h1>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/rjhunjhunwala/S.I.L.O.S">S.i.l.o.s</a> is maintained by <a href="https://github.com/rjhunjhunwala">rjhunjhunwala</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
