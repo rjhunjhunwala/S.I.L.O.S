@@ -1,0 +1,209 @@
+s = 40
+def : lbl
+S = s
+S * 16
+
+canvas S S Snake!
+bind 87 512 119 512 65 513 97 513 68 514 100 514 83 515 115 515 
+
+
+pen 0 0 255
+newObj 0 S S
+pen 255 0 0
+newObj 1 16 16
+pen 0 255 0
+
+GOSUB MakeNewApple
+x = 21
+y = 20
+//x and y coordinates of the head... ^
+X = 1
+Y = 0
+//x and y speeds ^
+i = 2
+N = 18
+n = 20
+newObj 0 16 16
+moveObj i 288 320
+queue 1 N
+queue 2 n
+queue 0 i
+GOSUB MarkSpotOccupied
+i + 1
+newObj 0 16 16
+moveObj i 304 320
+N + 1
+GOSUB MarkSpotOccupied
+queue 1 N
+queue 2 n
+queue 0 i
+i + 1
+newObj 0 16 16
+moveObj i 320 320
+N + 1
+GOSUB MarkSpotOccupied
+queue 1 N
+queue 2 n
+queue 0 i
+i + 1
+newObj 0 16 16
+moveObj i 336 320
+N + 1
+GOSUB MarkSpotOccupied
+queue 1 N
+queue 2 n
+queue 0 i
+
+:mainGameLoop
+
+t = get 512
+if t W
+GOTO w
+:W
+X = 0
+Y = -1
+set 512 0
+:w
+
+t = get 513
+if t A
+GOTO a
+:A
+X = -1
+Y = 0
+set 513 0
+:a
+
+t = get 514
+if t D
+GOTO d
+:D
+X = 1
+Y = 0
+set 514 0
+:d
+
+t = get 515
+if t S
+GOTO s
+:S
+X = 0
+Y = 1 
+set 515 0
+:s
+
+x+X
+y+Y
+x+40
+y+40
+
+x%40
+y%40
+
+
+
+
+Z=x
+Z*16
+z=y
+z*16
+
+
+
+queue 1 x
+queue 2 y
+
+N = x
+n = y
+
+
+
+GOSUB GetSpotOccupied
+if o end
+
+GOSUB MarkSpotOccupied
+
+R = A
+R - Z
+R |
+if R x
+R = a
+R - z
+R |
+if R x
+i + 1
+queue 0 i
+newObj 0 16 16
+moveObj i Z z
+N = Z
+n = z
+GOSUB MarkSpotOccupied
+GOSUB MakeNewApple
+GOTO else
+:x
+queuePop 1
+
+N = m
+queuePop 2
+n = m
+
+GOSUB MarkSpotOpen
+:else
+
+queuePop 0
+moveObj m Z z
+queue 0 m
+
+
+wait 100
+refresh
+GOTO mainGameLoop
+
+GOTO end
+funcMakeNewApple
+rand 40
+A = r
+A * 16
+rand 40
+a = r
+a * 16
+moveObj 1 A a
+
+return
+/**
+*Marks N,n as occupied
+*/
+funcMarkSpotOccupied
+v = 1024
+V = N
+V * 40
+v+V
+v+n
+set v 1
+return
+
+/**
+*Marks N,n as open
+*/
+funcMarkSpotOpen
+v = 1024
+V = N
+V * 40
+v+V
+v+n
+set v 0
+return
+
+/**
+*Checks if N,n as occupied and stores it into o
+*/
+funcGetSpotOccupied
+v = 1024
+V = N
+V * 40
+v+V
+v+n
+o = get v
+return
+
+lblend
