@@ -1,5 +1,6 @@
-s = 40
+640000
 def : lbl
+s = 40
 S = s
 S * 16
 
@@ -53,44 +54,87 @@ GOSUB MarkSpotOccupied
 queue 1 N
 queue 2 n
 queue 0 i
-
+g = 3
 :mainGameLoop
+L = 1
+G = g
+G - 2
+G |
+L - G
+
 
 t = get 512
 if t W
 GOTO w
 :W
+if L w
+g = 0
 X = 0
 Y = -1
 set 512 0
+GOTO ENDCHAR
 :w
+
+L = 1
+G = g
+G - 3
+G |
+L - G
+
 
 t = get 513
 if t A
 GOTO a
 :A
+if L a
+g = 1
 X = -1
 Y = 0
 set 513 0
+GOTO ENDCHAR
 :a
+
+L = 1
+G = g
+G - 1
+G |
+L - G
+
 
 t = get 514
 if t D
 GOTO d
 :D
+if L d
+g = 3
 X = 1
 Y = 0
 set 514 0
+GOTO ENDCHAR
 :d
+
+L = 1
+G = g
+L - G
+
 
 t = get 515
 if t S
 GOTO s
+
 :S
+if L s
+g = 2
 X = 0
 Y = 1 
 set 515 0
+GOTO ENDCHAR
 :s
+lblENDCHAR
+set 512 0
+set 513 0
+set 514 0
+set 515 0
 
 x+X
 y+Y
