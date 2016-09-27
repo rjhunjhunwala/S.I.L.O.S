@@ -1,25 +1,34 @@
 <!DOCTYPE html>
-<html lang="en-us">
+<html>
   <head>
-    <meta charset="UTF-8">
-    <title>S.i.l.o.s by rjhunjhunwala</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
-  </head>
-  <body>
-    <section class="page-header">
-      <h1 class="project-name">S.i.l.o.s</h1>
-      <h2 class="project-tagline">S.I.L.O.S aka SIL the &quot;Simple Interpreted Language&quot; for a modern age. </h2>
-      <a href="https://github.com/rjhunjhunwala/S.I.L.O.S" class="btn">View on GitHub</a>
-      <a href="https://github.com/rjhunjhunwala/S.I.L.O.S/zipball/master" class="btn">Download .zip</a>
-      <a href="https://github.com/rjhunjhunwala/S.I.L.O.S/tarball/master" class="btn">Download .tar.gz</a>
-    </section>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
 
-    <section class="main-content">
-      <h1>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-dark.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+
+    <title>S.i.l.o.s by rjhunjhunwala</title>
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1>S.i.l.o.s</h1>
+        <h2>S.I.L.O.S aka SIL the &quot;Simple Interpreted Language&quot; for a modern age. </h2>
+
+        <section id="downloads">
+          <a href="https://github.com/rjhunjhunwala/S.I.L.O.S/zipball/master" class="btn">Download as .zip</a>
+          <a href="https://github.com/rjhunjhunwala/S.I.L.O.S/tarball/master" class="btn">Download as .tar.gz</a>
+          <a href="https://github.com/rjhunjhunwala/S.I.L.O.S" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <h1>
 <a id="silos" class="anchor" href="#silos" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>S.I.L.O.S</h1>
 
 <p>S.I.L.O.S or SIL is designed for a nostalgic view of the past. It is simple and minimalistic, but remains capable of universal computation.
@@ -256,9 +265,14 @@ Than you can create an object
 Please see the game.txt and gui.txt files in the examples folder for an explanation.
 
 <h1>
-<a id="keyboard-bindings" class="anchor" href="#keyboard-bindings" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Keyboard Bindings</h1>bind intRepresentingChar1 heapSpot1 intOfChar2 heapSpot2 etcetera Where intRepresentingChar is an integer literal or variable representing a char ((ascii convention used) 97 would mean 'a') and heapspot is an integer value of a valid spot on the heap. 
+<a id="keyboard-bindings" class="anchor" href="#keyboard-bindings" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Keyboard Bindings</h1>
+
+<p>At any point you can place a binding to certain characters
+</p><pre>bind intRepresentingChar1 heapSpot1 intOfChar2 heapSpot2 etcetera</pre> Where intRepresentingChar is an integer literal or variable representing a char ((ascii convention used) 97 would mean 'a') and heapspot is an integer value of a valid spot on the heap. 
 When the corresponding characters get typed (and a canvas has already been created) the corresponding heapspot will be set to one. <b>This feature only works on the desktop version when a canvas is in focus</b>
+
 <hr>
+
 <h1>
 <a id="whitespace" class="anchor" href="#whitespace" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Whitespace</h1>
 
@@ -269,17 +283,32 @@ All lines are now indentable!</p>
 <a id="bitwise-operators-now-have-support-please-view-the-bitwisetxt-document-for-a-full-rundown-" class="anchor" href="#bitwise-operators-now-have-support-please-view-the-bitwisetxt-document-for-a-full-rundown-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Bitwise operators now have support. Please view the bitwise.txt document for a full rundown </h2>
 
 <h1>
+<a id="stacks-and-queues-" class="anchor" href="#stacks-and-queues-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Stacks and Queues </h1>
+
+<p>You have access to 32 stacks and 32 queues</p>
+
+<p>stack x y</p>
+
+<p>will add y to the xth stack</p>
+
+<p>queue x y</p>
+
+<p>will queue y onto the xth queue</p>
+
+<p>stackPop x</p>
+
+<p>will pop a value off of the xth stack and store in variable m</p>
+
+<p>queuePop x</p>
+
+<p>will dequeu a value off of the front of the xth queue and store in variable m</p>
+
+<h1>
 <a id="please-note-that-all-interactivity-including-graphics-support-is-unavailable-on-try-it-online-all-input-must-be-through-command-line-arguments" class="anchor" href="#please-note-that-all-interactivity-including-graphics-support-is-unavailable-on-try-it-online-all-input-must-be-through-command-line-arguments" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><b>Please note that all interactivity including graphics support is unavailable on Try it Online! all input must be through command line arguments</b>
 </h1>
+      </section>
+    </div>
 
-      <footer class="site-footer">
-        <span class="site-footer-owner"><a href="https://github.com/rjhunjhunwala/S.I.L.O.S">S.i.l.o.s</a> is maintained by <a href="https://github.com/rjhunjhunwala">rjhunjhunwala</a>.</span>
-
-        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
-      </footer>
-
-    </section>
-
-  
+    
   </body>
 </html>
