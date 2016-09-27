@@ -180,7 +180,7 @@ Than you can create an object
 <pre>moveObj index x y</pre> will move an object to a designated location.
 <pre>refresh</pre> is a mandatory command to be invoked once you have moved the objects around. refresh is the only way to actually trigger the painting. 
 Please see the game.txt and gui.txt files in the examples folder for an explanation.
-<h1>Keyboard Bindings</h1
+<h1>Keyboard Bindings</h1>
 At any point you can place a binding to certain characters
 <pre>bind intRepresentingChar1 heapSpot1 intOfChar2 heapSpot2 etcetera</pre> Where intRepresentingChar is an integer literal or variable representing a char ((ascii convention used) 97 would mean 'a') and heapspot is an integer value of a valid spot on the heap. 
 When the corresponding characters get typed (and a canvas has already been created) the corresponding heapspot will be set to one. <b>This feature only works on the desktop version when a canvas is in focus</b>
@@ -189,4 +189,25 @@ When the corresponding characters get typed (and a canvas has already been creat
 Most whitespace dependency is gone. The only necessary whitespace separates arguments and the new lines between commands. 
 All lines are now indentable!
 <h2>Bitwise operators now have support. Please view the bitwise.txt document for a full rundown </h2>
+<h1>Stacks and Queues </h1>
+You have access to 32 stacks and 32 queues
+
+stack x y
+
+will add y to the xth stack
+
+queue x y
+
+will queue y onto the xth queue
+
+stackPop x
+
+will pop a value off of the xth stack and store in variable m
+
+queuePop x
+
+will dequeu a value off of the front of the xth queue and store in variable m
+
+
 <h1><b>Please note that all interactivity including graphics support is unavailable on Try it Online! all input must be through command line arguments</b></h1>
+
