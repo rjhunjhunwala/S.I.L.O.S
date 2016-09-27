@@ -44,7 +44,7 @@ a ^ b a raised to the b
 //all assignment operators x - 5 is the equivalent of x-=5 for those familiar with C styled languages
 </pre>
 That is the basic syntax, note that as of this printing, integers are 32 bit signed integers [-1*2^31,2^31-1] which overflow and wrap around. 
-</br>There is a plan to make them big numbers with unbounded size.
+<br/>There is a plan to make them big numbers with unbounded size.
 <h2> Memory Buffer </h2>
 
 You can directly write to the memory buffer like such
