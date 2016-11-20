@@ -1,6 +1,6 @@
 <h1>S.I.L.O.S</h1>
 S.I.L.O.S or SIL is designed for a nostalgic view of the past. It is simple and minimalistic, but remains capable of universal computation.
-Feel free to [try this language online]( http://silos.tryitonline.net/#code=cHJpbnQgU2ltcGxlIEludGVycHJldGVkIExhbmd1YWdl&input=)! The interpreter is hosted by Dennis Mitchell. <b>Please do not pass the file name as a command line argument. Both the interpreter online and the version using command line arguments for file names put SILOS into a non interactive safe mode. Input is only taken through command line arguments one line for each line on stdin. No prompts are displayed, and no graphical output is given!</b>
+Feel free to [try this language online]( http://silos.tryitonline.net/#code=cHJpbnQgU2ltcGxlIEludGVycHJldGVkIExhbmd1YWdl&input=)! The interpreter is hosted by Dennis Mitchell. <b>Please do not pass the file name as a command line argument.For Both the interpreter online and the version using command line arguments for file names SILOS is in a non interactive "safe mode". In safe mode input is only taken through command line arguments one argument per each line on stdin. No prompts are displayed, and no graphical output is given!</b>
 <hr/>
 <h2> S.I.L.O.S </h2>
 S.I.L.O.S stands for.
