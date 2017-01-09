@@ -1,6 +1,6 @@
 /*
  *Feel free to modify and distribute the code and all relevant documentation
-* This code is provided as is and the author
+ * This code is provided as is and the author
  */
 
 import java.awt.Color;
@@ -9,13 +9,17 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Queue;
 import java.util.Scanner;
 import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -24,6 +28,11 @@ import javax.swing.JPanel;
  * @author rohan
  */
 public class Silos {
+
+	public static final int SIZE = 32;
+	public static final Stack<Integer>[] stacks = new Stack[SIZE];
+	public static final ArrayDeque<Integer>[] q = new ArrayDeque[SIZE];
+
 	/**
 	 * This integer[] represents the heap of memory which can be addressed
 	 */
@@ -67,6 +76,12 @@ public class Silos {
 	private final static int NEWOBJ = 34 << 8;
 	private static final int MOVEOBJ = 35 << 8;
 	private static final int PRINTINTNOLINE = 36 << 8;
+	private static final int STACK = 37 << 8;
+	private static final int QUEUE = 38 << 8;
+	private static final int STACK_POP = 39 << 8;
+	private static final int QUEUE_POP = 40 << 8;
+	private static final int POP_UP = 41 << 8;
+	private static final int GET_STRING_POP_UP = 42 << 8;
 
 	private final static int INTEGER = 0;
 	private final static int VARIABLE = 1;
@@ -135,29 +150,32 @@ public class Silos {
 			height = inHeight;
 		}
 	}
-public static String IDEFileName = "234567890-45678900ihb567890oijhb213dsa_TempFILE_v";
+	public static String IDEFileName = "234567890-45678900ihb567890oijhb213dsa_TempFILE_v";
+
 	/**
 	 * The main interpretation code
 	 *
 	 * @param args the command line arguments to be passed from the online
-	 * interpreter the first argument represents a fileName, and the rest
-	 * represent a source of input Feeding in any number of command line arguments
-	 * will generally disable interactivity. 
+	 * interpreter the first argument represents a fileName, and the rest represent
+	 * a source of input Feeding in any number of command line arguments will
+	 * generally disable interactivity.
 	 */
-
 	public static void main(String... args) {
+		for (int i = 0; i < SIZE; i++) {
+			q[i] = new ArrayDeque<Integer>();
+			stacks[i] = new Stack<Integer>();
+		}
 		Stack<Integer> stack = new Stack<>();
 		Scanner sc = new Scanner(System.in);
 		boolean interactive = (args.length == 0);
-	
-				
-		int[][] program = compile(args.length==0?getStringFromSTDIN("FileName?", sc):args[0]);
-		if(args.length==1){
-			if(args[0].equals(IDEFileName)){
+
+		int[][] program = compile(args.length == 0 ? getStringFromSTDIN("FileName?", sc) : args[0]);
+		if (args.length == 1) {
+			if (args[0].equals(IDEFileName)) {
 				interactive = true;
 			}
 		}
-		
+
 		int arg_index = 1;
 		int ptr = 0;
 		int length = program.length;
@@ -184,6 +202,22 @@ public static String IDEFileName = "234567890-45678900ihb567890oijhb213dsa_TempF
 						break;
 					case PRINTLINE:
 						System.out.println(tokens.length > 1 ? texts[tokens[1]] : "");
+						break;
+					case POP_UP:
+
+						if (Canvas.c != null) {
+							JOptionPane.showMessageDialog(Canvas.c, (tokens.length > 1 ? texts[tokens[1]] : ""), Canvas.c.getTitle(), JOptionPane.INFORMATION_MESSAGE);
+						}
+
+						break;
+					case GET_STRING_POP_UP:
+						if (Canvas.c != null) {
+							String temp = JOptionPane.showInputDialog(Canvas.c, (tokens.length > 1 ? texts[tokens[1]] : ""), Canvas.c.getTitle(), JOptionPane.INFORMATION_MESSAGE);
+							char[] in = temp.toCharArray();
+							for (int i = 0, j = 256; i < in.length; i++, j++) {
+								mem[j] = in[i];
+							}
+						}
 						break;
 					case PRINTCHAR:
 						System.out.print((char) evalToken(tokens[0], tokens[1], 0));
@@ -216,6 +250,22 @@ public static String IDEFileName = "234567890-45678900ihb567890oijhb213dsa_TempF
 						break;
 					case ASSIGN:
 						mem[tokens[1]] = evalToken(tokens[0], tokens[2], 0);
+						break;
+					case STACK:
+
+						stacks[evalToken(tokens[0], tokens[1], 0)].push(evalToken(tokens[0], tokens[2], 1));
+
+						break;
+					case QUEUE:
+
+						q[evalToken(tokens[0], tokens[1], 0)].add(evalToken(tokens[0], tokens[2], 1));
+
+						break;
+					case QUEUE_POP:
+						mem['m'] = q[evalToken(tokens[0], tokens[1], 0)].isEmpty() ? 0 : q[evalToken(tokens[0], tokens[1], 0)].remove();
+						break;
+					case STACK_POP:
+						mem['m'] = stacks[evalToken(tokens[0], tokens[1], 0)].isEmpty() ? 0 : stacks[evalToken(tokens[0], tokens[1], 0)].pop();
 						break;
 					case GET:
 						mem[tokens[1]] = mem[evalToken(Silos.INTEGER, evalToken(tokens[0], tokens[2], 0), 0)];
@@ -251,10 +301,10 @@ public static String IDEFileName = "234567890-45678900ihb567890oijhb213dsa_TempF
 						mem[tokens[1]] ^= evalToken(tokens[0], tokens[2], 0);
 						break;
 					case XNOR:
-						mem[tokens[1]] ^=~ evalToken(tokens[0], tokens[2], 0);
+						mem[tokens[1]] ^= ~evalToken(tokens[0], tokens[2], 0);
 						break;
 					case NOT:
-						mem[tokens[1]] =~ mem[tokens[1]];
+						mem[tokens[1]] = ~mem[tokens[1]];
 						break;
 					case LSHIFT:
 						mem[tokens[1]] <<= evalToken(tokens[0], tokens[2], 0);
@@ -298,9 +348,9 @@ public static String IDEFileName = "234567890-45678900ihb567890oijhb213dsa_TempF
 					case CANVAS:
 						if (interactive) {
 							Canvas.createCanvas(
-								evalToken(tokens[0], tokens[1], 0),
-								evalToken(tokens[0], tokens[2], 1),
-								texts[tokens[3]]
+															evalToken(tokens[0], tokens[1], 0),
+															evalToken(tokens[0], tokens[2], 1),
+															texts[tokens[3]]
 							);
 						}
 						break;
@@ -332,9 +382,9 @@ public static String IDEFileName = "234567890-45678900ihb567890oijhb213dsa_TempF
 					case PEN:
 						if (Canvas.createdCanvas) {
 							Canvas.pen = new Color(
-								evalToken(tokens[0], tokens[1], 0),
-								evalToken(tokens[0], tokens[2], 1),
-								evalToken(tokens[0], tokens[3], 2)
+															evalToken(tokens[0], tokens[1], 0),
+															evalToken(tokens[0], tokens[2], 1),
+															evalToken(tokens[0], tokens[3], 2)
 							);
 						}
 						break;
@@ -458,11 +508,10 @@ public static String IDEFileName = "234567890-45678900ihb567890oijhb213dsa_TempF
 			for (int i = 0; i < tokens.size(); i++) {
 				String command = tokens.get(i);
 				if (command.startsWith("def")
-					|| command.startsWith("//")
-					|| command.startsWith("#")
-					|| command.startsWith("*")
-					|| command.startsWith("/*")
-				) {
+												|| command.startsWith("//")
+												|| command.startsWith("#")
+												|| command.startsWith("*")
+												|| command.startsWith("/*")) {
 					continue;
 				}
 				for (int j = 1; j < replace.length; j += 2) {
@@ -605,6 +654,34 @@ public static String IDEFileName = "234567890-45678900ihb567890oijhb213dsa_TempF
 					}
 					continue;
 				}
+								if (instruction.equals("loadLinePopUp")) {
+					if (command_clone.length() > 14) {
+						String text = command_clone.substring(14);
+						int index = texts.indexOf(text);
+						if (index == -1) {
+							index = texts.size();
+							texts.add(text);
+						}
+						program.add(new int[]{Silos.GET_STRING_POP_UP, index});
+					} else {
+						program.add(new int[]{Silos.GET_STRING_POP_UP});
+					}
+					continue;
+				}
+				if (instruction.equals("prompt")) {
+					if (command_clone.length() > 9) {
+						String text = command_clone.substring(9);
+						int index = texts.indexOf(text);
+						if (index == -1) {
+							index = texts.size();
+							texts.add(text);
+						}
+						program.add(new int[]{Silos.GET_STRING_POP_UP, index});
+					} else {
+						program.add(new int[]{Silos.GET_STRING_POP_UP});
+					}
+					continue;
+				}
 				if (instruction.equals("print")) {
 					if (command_clone.length() > 6) {
 						String text = command_clone.substring(6);
@@ -619,6 +696,37 @@ public static String IDEFileName = "234567890-45678900ihb567890oijhb213dsa_TempF
 					}
 					continue;
 				}
+				if (instruction.equals("popUp")) {
+					if (command_clone.length() > 6) {
+						String text = command_clone.substring(6);
+						int index = texts.indexOf(text);
+						if (index == -1) {
+							index = texts.size();
+							texts.add(text);
+						}
+						program.add(new int[]{Silos.POP_UP, index});
+					} else {
+						program.add(new int[]{Silos.POP_UP});
+					}
+					continue;
+				}
+				if (instruction.equals("alert")) {
+
+					if (command_clone.length() > 6) {
+						String text = command_clone.substring(6);
+						int index = texts.indexOf(text);
+						if (index == -1) {
+							index = texts.size();
+							texts.add(text);
+						}
+
+						program.add(new int[]{Silos.POP_UP, index});
+					} else {
+						program.add(new int[]{Silos.POP_UP});
+					}
+					continue;
+				}
+
 				if (instruction.equals("printLine")) {
 					if (command_clone.length() > 10) {
 						String text = command_clone.substring(10);
@@ -664,6 +772,32 @@ public static String IDEFileName = "234567890-45678900ihb567890oijhb213dsa_TempF
 				}
 				if (instruction.equals("printIntNoLine")) {
 					program.add(new int[]{Silos.PRINTINTNOLINE + Silos.VARIABLE, (int) words[1].charAt(0)});
+					continue;
+				}
+				if (instruction.equals("stackPop")) {
+					int mode;
+					int argument;
+					try {
+						argument = Integer.parseInt(words[1]);
+						mode = Silos.INTEGER;
+					} catch (Exception e) {
+						argument = (int) words[1].charAt(0);
+						mode = Silos.VARIABLE;
+					}
+					program.add(new int[]{Silos.STACK_POP + mode, argument});
+					continue;
+				}
+				if (instruction.equals("queuePop")) {
+					int mode;
+					int argument;
+					try {
+						argument = Integer.parseInt(words[1]);
+						mode = Silos.INTEGER;
+					} catch (Exception e) {
+						argument = (int) words[1].charAt(0);
+						mode = Silos.VARIABLE;
+					}
+					program.add(new int[]{Silos.QUEUE_POP + mode, argument});
 					continue;
 				}
 
@@ -745,6 +879,46 @@ public static String IDEFileName = "234567890-45678900ihb567890oijhb213dsa_TempF
 						mode2 = Silos.VARIABLE;
 					}
 					program.add(new int[]{Silos.SET + (mode2 << 1) + (mode1), arg1, arg2});
+					continue;
+				}
+				if (instruction.equals("stack")) {
+					int mode1, mode2;
+					int arg1, arg2;
+					try {
+						arg1 = Integer.parseInt(words[1]);
+						mode1 = Silos.INTEGER;
+					} catch (Exception e) {
+						arg1 = (int) words[1].charAt(0);
+						mode1 = Silos.VARIABLE;
+					}
+					try {
+						arg2 = Integer.parseInt(words[2]);
+						mode2 = Silos.INTEGER;
+					} catch (Exception e) {
+						arg2 = (int) words[2].charAt(0);
+						mode2 = Silos.VARIABLE;
+					}
+					program.add(new int[]{Silos.STACK + (mode2 << 1) + (mode1), arg1, arg2});
+					continue;
+				}
+				if (instruction.equals("queue")) {
+					int mode1, mode2;
+					int arg1, arg2;
+					try {
+						arg1 = Integer.parseInt(words[1]);
+						mode1 = Silos.INTEGER;
+					} catch (Exception e) {
+						arg1 = (int) words[1].charAt(0);
+						mode1 = Silos.VARIABLE;
+					}
+					try {
+						arg2 = Integer.parseInt(words[2]);
+						mode2 = Silos.INTEGER;
+					} catch (Exception e) {
+						arg2 = (int) words[2].charAt(0);
+						mode2 = Silos.VARIABLE;
+					}
+					program.add(new int[]{Silos.QUEUE + (mode2 << 1) + (mode1), arg1, arg2});
 					continue;
 				}
 
@@ -1052,7 +1226,126 @@ public static String IDEFileName = "234567890-45678900ihb567890oijhb213dsa_TempF
 		}
 		return null;
 	}
-public static String program = "";
+
+	/**
+	 * A parser is currently under developement, it isn't integrated with the
+	 * language, but here is some code to show that it is under developement. It
+	 * defines an "expression" as a simple context free grammar
+	 */
+	private static class Parser {
+
+		private static void main(String[] args) {
+			System.out.println(parse(new java.util.Scanner(System.in).nextLine()));
+		}
+
+		/**
+		 * Evaluates a string as a grammar and returns a value dictated by math
+		 *
+		 * @param s the string to parse
+		 * @return Its value. This method will take input as an expression and
+		 * evaluate it. An expression can be generally defined as
+		 * (Expression[+-/*^]expression)
+		 */
+		public static double parse(String s) {
+			Expression e = new Expression(s);
+			return e.getValue();
+		}
+
+		public static int[] getMatchingMap(String s) {
+			int[] matchingMap = new int[s.length()];
+			Stack<Integer> parenStack = new Stack<>();
+			for (int i = 0; i < s.length(); i++) {
+				if (s.charAt(i) == '(') {
+					parenStack.push(i);
+				}
+				if (s.charAt(i) == ')') {
+					int temp = parenStack.pop();
+					matchingMap[temp] = i;
+					matchingMap[i] = temp;
+				}
+			}
+			return matchingMap;
+		}
+
+		public static class Expression {
+
+			char operator;
+			String straightValue;
+			private double val;
+			boolean variable;
+			boolean isSingleValue;
+			Expression left;
+			Expression right;
+			String s;
+
+			public Expression(String s) {
+				this.s = s;
+				if (!s.matches("(.*)[\\Q=+-*/^\\E](.*)")) {
+					isSingleValue = true;
+					straightValue = s;
+					try {
+						val = Double.parseDouble(s);
+					} catch (Exception ex) {
+						variable = true;
+					}
+				} else {
+					int[] matchingMap = getMatchingMap(s);
+					int x = matchingMap[1];
+
+					int mid = x == 0 ? getFirst(s) : x + 1;
+					left = new Expression(s.substring(1, mid));
+
+					right = new Expression(s.substring(mid + 1, s.length() - 1));
+					operator = s.charAt(mid);
+				}
+			}
+
+			public double getStraightValue() {
+				return variable ? getVariableValue() : Double.parseDouble(straightValue);
+			}
+
+			public double getVariableValue() {
+				return .523;
+			}
+
+			public double getValue() {
+				if (isSingleValue) {
+					return getStraightValue();
+				}
+				double leftVal = left.getValue();
+				double rightVal = right.getValue();
+				switch (operator) {
+					case '*':
+						return leftVal * rightVal;
+					case '-':
+						return leftVal - rightVal;
+					case '/':
+						return leftVal / rightVal;
+					case '+':
+						return leftVal + rightVal;
+					case '^':
+						return Math.pow(leftVal, rightVal);
+					default:
+						//prerequisites not held
+						System.err.println("Deformed pattern" + s);
+						return -1;
+				}
+
+			}
+
+			private int getFirst(String s) {
+				for (int i = 0; i < s.length(); i++) {
+					if ("+-/*^".contains(s.charAt(i) + "")) {
+						return i;
+					}
+				}
+				return -1;
+			}
+		}
+	}
+
+	public static String program = "";
+
 	/**
 	 * Evaluates a token by figuring out whether it is an integer literal or a
 	 * variable
