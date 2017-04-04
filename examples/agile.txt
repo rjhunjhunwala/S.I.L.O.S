@@ -1,0 +1,34 @@
+leverage stdlib
+//This code provides some sample insight on how to use the standard libraries
+GOSUB Help
+printLine
+canvas 1000 1000 Agile
+newObj 1 50 50
+// We leverage agile frameworks to create a moving image of a ball around a circle
+
+lblTop
+X=x
+X-31415
+X*-1
+if X Good
+x-62830
+lblGood
+
+stack 0 x
+GOSUB CosX
+stackPop 0
+X=(m/479001600)*475+475
+
+
+stack 0 x
+GOSUB SinX
+//backslash is an escape character for negative
+//note the expression should not contain spaces
+Y=(m/39916800)*\475+475
+
+moveObj 0 X Y
+refresh
+
+x+1
+GOTO Top
+
