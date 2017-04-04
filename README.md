@@ -208,6 +208,14 @@ queuePop x
 
 will dequeu a value off of the front of the xth queue and store in variable m
 
+<h1>SIL 3.0</h1>
+
+SIL 3.0 has been released after heavy developement, please do enjoy the followign features.
+
+- Pop up alerts simply type "alert string" 
+- Pop up string input boxes "loadLinePopUp stringAsPrompt"
+- Mathematical expressions x = (Whatever) (Do note that whatever has to be a well formed mathematical expression which can consist of any amount of preceding whitespace, but may not contain whitespace within it).
+- A standard library, simply type leverage stdlib to use the power of the ever expanding standard Library, feel free to contribute more libraries which get imported by typing "leverage fileName.txt"
 
 <h1><b>Please note that all interactivity including graphics support is unavailable on Try it Online! all input must be through command line arguments</b></h1>
 
