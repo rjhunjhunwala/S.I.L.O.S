@@ -1,3 +1,7 @@
+package IDE;
+
+
+
 
 
 /*
@@ -30,7 +34,8 @@ import javax.swing.JPanel;
  */
 public class Silos {
 
-	public static final String[] stdlib = {};
+	public static final String[] stdlib = {"GOTO EndOfTheStandardLibraries","/**","* This is the source code presented for the standard libraries of SILOS","* There is no need to download this file as it is attached with the release (in \"Silos.java\")","* simply import this library by using \"leverage stdlib\"","* To make a library of your own, follow the standards presented in this code. Most notably,","* Start the code with a goto to skip all of the utility methods. ","* Then, to import your code use \"leverage fileName.txt\" (replacing with the fully qualified file name)","*/","","//Trig Methods","","/**","* Sin method, returns sin(x/10000)*39916800 using an 11th order taylor polynomial","* Receives input via the top of the zeroth stack and uses the m M and ? variables","* returns to the top of the zeroth stack accurate to three significant figures from [-pi,pi]","*/","funcSinX","    stackPop 0","    m=(99792*m)/25-(2079*m^3)/312500000+(2079*m^5)/625000000000000000-(99*m^7)/125000000000000000000000000+(11*m^9)/100000000000000000000000000000000000-m^11/100000000000000000000000000000000000000000000 ","    stack 0 m","return","","/**","* Cos method returns 479001600*cos(x/10000) using an 12th order taylor polynomial","* receives input via the top of the zeroth stack and uses the m M and ? variables","*/","funcCosX","    stackPop 0","    m = 479001600*(1-m^2/200000000+m^4/240000000000000000-m^6/720000000000000000000000000+m^8/4032000000000000000000000000000000000-m^10/36288000000000000000000000000000000000000000000+m^12/479001600000000000000000000000000000000000000000000000000)","    stack 0 m","return","/**","* Echo out the first line of standard input uses m and M as a variable","*/","funcCat","    loadLine","    m=256","    M=get m","    lblTOPOFCATLOOP","        printChar M","        m+1","        M =get m","    if M TOPOFCATLOOP","return","//String manipulation Functions V","","//This area has been allocated for string manipulation functions","","//End of String manipulation Functions ^","","//This method will help new users by providing documentation","funcHelp","printLine GitHub for this language","printLine https://github.com/rjhunjhunwala/S.I.L.O.S","printLine IDE for this language","printLine https://github.com/rjhunjhunwala/S.I.D.E","return","lblEndOfTheStandardLibraries"};
+
 	public static final int SIZE = 32;
 	public static final Stack<Integer>[] stacks = new Stack[SIZE];
 	public static final ArrayDeque<Integer>[] q = new ArrayDeque[SIZE];
@@ -176,7 +181,13 @@ public class Silos {
 	 * will generally disable interactivity.
 	 */
 	public static void main(String... args) {
-
+//String[] s = file.getWordsFromFile("stdlib.txt");
+//System.out.print("{");
+//for(int i=0;i<s.length;i++){
+//	System.out.print("\""+s[i]+"\"");
+//	System.out.print(i==s.length-1?"}":",");
+//	
+//}
 		for (int i = 0; i < SIZE; i++) {
 			q[i] = new ArrayDeque<Integer>();
 			stacks[i] = new Stack<Integer>();
@@ -550,7 +561,9 @@ String t;
 				 tokens.add(t);
 							}
 						} else {
-							tokens.addAll(Arrays.asList(stdlib));
+for(String line:stdlib){
+	tokens.add(line.replaceAll("^\\s+",""));
+}
 						}
 					}
 				}
