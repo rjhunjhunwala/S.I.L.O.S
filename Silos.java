@@ -29,14 +29,15 @@ import javax.swing.JPanel;
 public class Silos {
 
 	/**
-	 * This string contains the source for the standard libraries. It contains four
-	 * methods which are case sensitive Help -> Outputs useful help information to
-	 * the console CosX returns 479001600*cos(x/10000) using a 12th order taylor
-	 * polynomial receives input via the top of the zeroth stack and uses the m M
-	 * and ? variables SinX returns sin(x/10000)*39916800 using an 11th order
-	 * taylor polynomial Receives input via the top of the zeroth stack and uses
-	 * the m M and ? variables returns to the top of the zeroth stack accurate to
-	 * three significant figures from [-pi,pi] and Cat functions as a cat program
+	 * This string contains the source for the standard libraries. It contains
+	 * four methods which are case sensitive Help -> Outputs useful help
+	 * information to the console CosX returns 479001600*cos(x/10000) using a 12th
+	 * order taylor polynomial receives input via the top of the zeroth stack and
+	 * uses the m M and ? variables SinX returns sin(x/10000)*39916800 using an
+	 * 11th order taylor polynomial Receives input via the top of the zeroth stack
+	 * and uses the m M and ? variables returns to the top of the zeroth stack
+	 * accurate to three significant figures from [-pi,pi] and Cat functions as a
+	 * cat program
 	 */
 	public static final String[] stdlib = {"GOTO EndOfTheStandardLibraries", "/**", "* This is the source code presented for the standard libraries of SILOS", "* There is no need to download this file as it is attached with the release (in \"Silos.java\")", "* simply import this library by using \"leverage stdlib\"", "* To make a library of your own, follow the standards presented in this code. Most notably,", "* Start the code with a goto to skip all of the utility methods. ", "* Then, to import your code use \"leverage fileName.txt\" (replacing with the fully qualified file name)", "*/", "", "//Trig Methods", "", "/**", "* Sin method, returns sin(x/10000)*39916800 using an 11th order taylor polynomial", "* Receives input via the top of the zeroth stack and uses the m M and ? variables", "* returns to the top of the zeroth stack accurate to three significant figures from [-pi,pi]", "*/", "funcSinX", "    stackPop 0", "    m=(99792*m)/25-(2079*m^3)/312500000+(2079*m^5)/625000000000000000-(99*m^7)/125000000000000000000000000+(11*m^9)/100000000000000000000000000000000000-m^11/100000000000000000000000000000000000000000000 ", "    stack 0 m", "return", "", "/**", "* Cos method returns 479001600*cos(x/10000) using an 12th order taylor polynomial", "* receives input via the top of the zeroth stack and uses the m M and ? variables", "*/", "funcCosX", "    stackPop 0", "    m = 479001600*(1-m^2/200000000+m^4/240000000000000000-m^6/720000000000000000000000000+m^8/4032000000000000000000000000000000000-m^10/36288000000000000000000000000000000000000000000+m^12/479001600000000000000000000000000000000000000000000000000)", "    stack 0 m", "return", "/**", "* Echo out the first line of standard input uses m and M as a variable", "*/", "funcCat", "    loadLine", "    m=256", "    M=get m", "    lblTOPOFCATLOOP", "        printChar M", "        m+1", "        M =get m", "    if M TOPOFCATLOOP", "return", "//String manipulation Functions V", "", "//This area has been allocated for string manipulation functions", "", "//End of String manipulation Functions ^", "", "//This method will help new users by providing documentation", "funcHelp", "printLine GitHub for this language", "printLine https://github.com/rjhunjhunwala/S.I.L.O.S", "printLine IDE for this language", "printLine https://github.com/rjhunjhunwala/S.I.D.E", "return", "lblEndOfTheStandardLibraries"};
 //The number of stacks and queues the user may access
@@ -127,7 +128,7 @@ public class Silos {
 		ArrayList<Double> ret = new ArrayList<>();
 		for (String s : arrayList) {
 			try {
-				ret.add(Double.parseDouble(s.replaceAll("rand",Math.random()+"").replaceAll("\\Q\\\\E", "-").replaceAll(" ", "")));
+				ret.add(Double.parseDouble(s.replaceAll("rand", Math.random() + "").replaceAll("\\Q\\\\E", "-").replaceAll(" ", "")));
 			} catch (Exception ex) {
 				ret.add(mem[s.charAt(0)] / 1.0);
 			}
@@ -136,8 +137,8 @@ public class Silos {
 	}
 
 	/**
-		* Allows Programs to have (somewhat) asynchronous listening to keyboard input
-		*/
+	 * Allows Programs to have (somewhat) asynchronous listening to keyboard input
+	 */
 	static class Input implements KeyListener {
 
 		static int[] bindings = new int[]{};
@@ -171,7 +172,6 @@ public class Silos {
 		}
 
 	}
-	
 
 	static class Drawable {
 
@@ -187,7 +187,7 @@ public class Silos {
 			height = inHeight;
 		}
 	}
-	
+
 //Files with this name are being invoked from the IDE
 	public static String IDEFileName = "234567890-45678900ihb567890oijhb213dsa_TempFILE_v";
 
@@ -195,9 +195,9 @@ public class Silos {
 	 * The main interpretation code
 	 *
 	 * @param args the command line arguments to be passed from the online
-	 * interpreter the first argument represents a fileName, and the rest represent
-	 * a source of input Feeding in any number of command line arguments will
-	 * generally disable interactivity.
+	 * interpreter the first argument represents a fileName, and the rest
+	 * represent a source of input Feeding in any number of command line arguments
+	 * will generally disable interactivity.
 	 */
 	public static void main(String... args) {
 		for (int i = 0; i < SIZE; i++) {
@@ -391,9 +391,9 @@ public class Silos {
 					case CANVAS:
 						if (interactive) {
 							Canvas.createCanvas(
-															evalToken(tokens[0], tokens[1], 0),
-															evalToken(tokens[0], tokens[2], 1),
-															texts[tokens[3]]
+								evalToken(tokens[0], tokens[1], 0),
+								evalToken(tokens[0], tokens[2], 1),
+								texts[tokens[3]]
 							);
 						}
 						break;
@@ -425,9 +425,9 @@ public class Silos {
 					case PEN:
 						if (Canvas.createdCanvas) {
 							Canvas.pen = new Color(
-															evalToken(tokens[0], tokens[1], 0),
-															evalToken(tokens[0], tokens[2], 1),
-															evalToken(tokens[0], tokens[3], 2)
+								evalToken(tokens[0], tokens[1], 0),
+								evalToken(tokens[0], tokens[2], 1),
+								evalToken(tokens[0], tokens[3], 2)
 							);
 						}
 						break;
@@ -451,8 +451,8 @@ public class Silos {
 	}
 
 	/**
-		* GUI Class
-		*/
+	 * GUI Class
+	 */
 	static class Canvas extends JFrame {
 
 		static class Panel extends JPanel {
@@ -512,13 +512,12 @@ public class Silos {
 			}
 		}
 	}
-	
-/**
-	* Another way to temporarily hold the memory
-	*/
+
+	/**
+	 * Another way to temporarily hold the memory
+	 */
 	static int[] memory;
 
-	
 	/**
 	 * Compile the program, and link other sources
 	 *
@@ -598,16 +597,16 @@ public class Silos {
 			for (int i = 0; i < tokens.size(); i++) {
 				String command = tokens.get(i);
 				if (command.startsWith("def")
-												|| command.startsWith("//")
-												|| command.startsWith("#")
-												|| command.startsWith("*")
-												|| command.startsWith("/*")) {
+					|| command.startsWith("//")
+					|| command.startsWith("#")
+					|| command.startsWith("*")
+					|| command.startsWith("/*")) {
 					continue;
 				}
 				for (int j = 1; i < progSize && j < replace.length; j += 2) {
 					command = command.replaceAll(replace[j], replace[j + 1]);
 				}
-				
+
 				if (command.length() == 0) {
 					continue;
 				}
@@ -710,7 +709,7 @@ public class Silos {
 					String func = words[1];
 					int index = func_temp.indexOf(func);
 					if (index == -1) {
-						System.err.println("Warning possible undeclared function. Could not find symbol:"+func+"\nThis could be because the function is undefined, or defined later.");
+						System.err.println("Warning possible undeclared function. Could not find symbol:" + func + "\nThis could be because the function is undefined, or defined later.");
 						index = func_temp.size();
 						func_temp.add(func);
 					}
@@ -1247,11 +1246,12 @@ public class Silos {
 						program.add(new int[]{instr, arg1});
 					} else if (instr == Silos.ASSIGN) {
 //If the last phrase is a mathematical expression
-						if (words[2].matches("(.*)[\\Q()*-+/^\\E](.*)")||words[2].contains("rand")) {
+String s;						
+if ((s=temp.substring(temp.lastIndexOf('=')+1).replaceAll(" ","")).matches("(.*)[\\Q()*-+/^\\E](.*)") || words[2].contains("rand")) {
 							arg2 = texts.size();
-							texts.add(temp.substring(command_clone.lastIndexOf("=")+1).replaceAll(" ", ""));
+							texts.add(s);
 							mode = Silos.PARSABLE;
-					
+
 						} else {
 							try {
 								arg2 = Integer.parseInt(words[2]);
@@ -1351,8 +1351,9 @@ public class Silos {
 	}
 
 	/**
-	 * Evaluates a mathematical expression, take two.
-	 *
+	 * Evaluates a mathematical expression 
+	 * Currently supported operators (+-//*%^) addition subtraction
+	 * multiplication division (/) modulus and exponentiation
 	 * @param toParse
 	 * @return
 	 */
