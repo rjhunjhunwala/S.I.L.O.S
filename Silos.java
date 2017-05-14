@@ -1,4 +1,4 @@
-
+package IDE;
 
 /*
  * Feel free to modify and distribute the code and all relevant documentation
@@ -29,15 +29,14 @@ import javax.swing.JPanel;
 public class Silos {
 
 	/**
-	 * This string contains the source for the standard libraries. It contains
-	 * four methods which are case sensitive Help -> Outputs useful help
-	 * information to the console CosX returns 479001600*cos(x/10000) using a 12th
-	 * order taylor polynomial receives input via the top of the zeroth stack and
-	 * uses the m M and ? variables SinX returns sin(x/10000)*39916800 using an
-	 * 11th order taylor polynomial Receives input via the top of the zeroth stack
-	 * and uses the m M and ? variables returns to the top of the zeroth stack
-	 * accurate to three significant figures from [-pi,pi] and Cat functions as a
-	 * cat program
+	 * This string contains the source for the standard libraries. It contains four
+	 * methods which are case sensitive Help -> Outputs useful help information to
+	 * the console CosX returns 479001600*cos(x/10000) using a 12th order taylor
+	 * polynomial receives input via the top of the zeroth stack and uses the m M
+	 * and ? variables SinX returns sin(x/10000)*39916800 using an 11th order
+	 * taylor polynomial Receives input via the top of the zeroth stack and uses
+	 * the m M and ? variables returns to the top of the zeroth stack accurate to
+	 * three significant figures from [-pi,pi] and Cat functions as a cat program
 	 */
 	public static final String[] stdlib = {"GOTO EndOfTheStandardLibraries", "/**", "* This is the source code presented for the standard libraries of SILOS", "* There is no need to download this file as it is attached with the release (in \"Silos.java\")", "* simply import this library by using \"leverage stdlib\"", "* To make a library of your own, follow the standards presented in this code. Most notably,", "* Start the code with a goto to skip all of the utility methods. ", "* Then, to import your code use \"leverage fileName.txt\" (replacing with the fully qualified file name)", "*/", "", "//Trig Methods", "", "/**", "* Sin method, returns sin(x/10000)*39916800 using an 11th order taylor polynomial", "* Receives input via the top of the zeroth stack and uses the m M and ? variables", "* returns to the top of the zeroth stack accurate to three significant figures from [-pi,pi]", "*/", "funcSinX", "    stackPop 0", "    m=(99792*m)/25-(2079*m^3)/312500000+(2079*m^5)/625000000000000000-(99*m^7)/125000000000000000000000000+(11*m^9)/100000000000000000000000000000000000-m^11/100000000000000000000000000000000000000000000 ", "    stack 0 m", "return", "", "/**", "* Cos method returns 479001600*cos(x/10000) using an 12th order taylor polynomial", "* receives input via the top of the zeroth stack and uses the m M and ? variables", "*/", "funcCosX", "    stackPop 0", "    m = 479001600*(1-m^2/200000000+m^4/240000000000000000-m^6/720000000000000000000000000+m^8/4032000000000000000000000000000000000-m^10/36288000000000000000000000000000000000000000000+m^12/479001600000000000000000000000000000000000000000000000000)", "    stack 0 m", "return", "/**", "* Echo out the first line of standard input uses m and M as a variable", "*/", "funcCat", "    loadLine", "    m=256", "    M=get m", "    lblTOPOFCATLOOP", "        printChar M", "        m+1", "        M =get m", "    if M TOPOFCATLOOP", "return", "//String manipulation Functions V", "", "//This area has been allocated for string manipulation functions", "", "//End of String manipulation Functions ^", "", "//This method will help new users by providing documentation", "funcHelp", "printLine GitHub for this language", "printLine https://github.com/rjhunjhunwala/S.I.L.O.S", "printLine IDE for this language", "printLine https://github.com/rjhunjhunwala/S.I.D.E", "return", "lblEndOfTheStandardLibraries"};
 //The number of stacks and queues the user may access
@@ -71,7 +70,7 @@ public class Silos {
 	private final static int LOADLINE = 12 << 8;
 	private final static int CANVAS = 13 << 8;
 	private final static int WAIT = 14 << 8;
-	private final static int DRAW = 15 << 8;
+	private final static int UNDOCOPCODE = 15 << 8;
 	private final static int PEN = 16 << 8;
 	private final static int BIND = 17 << 8;
 	private final static int REFRESH = 18 << 8;
@@ -99,7 +98,9 @@ public class Silos {
 	private static final int QUEUE_POP = 40 << 8;
 	private static final int POP_UP = 41 << 8;
 	private static final int GET_STRING_POP_UP = 42 << 8;
-
+ private static final int ALLOC = 43 << 8;
+	
+	
 	//MODES
 	private final static int INTEGER = 0;
 	private final static int VARIABLE = 1;
@@ -195,9 +196,9 @@ public class Silos {
 	 * The main interpretation code
 	 *
 	 * @param args the command line arguments to be passed from the online
-	 * interpreter the first argument represents a fileName, and the rest
-	 * represent a source of input Feeding in any number of command line arguments
-	 * will generally disable interactivity.
+	 * interpreter the first argument represents a fileName, and the rest represent
+	 * a source of input Feeding in any number of command line arguments will
+	 * generally disable interactivity.
 	 */
 	public static void main(String... args) {
 		for (int i = 0; i < SIZE; i++) {
@@ -391,43 +392,22 @@ public class Silos {
 					case CANVAS:
 						if (interactive) {
 							Canvas.createCanvas(
-								evalToken(tokens[0], tokens[1], 0),
-								evalToken(tokens[0], tokens[2], 1),
-								texts[tokens[3]]
+															evalToken(tokens[0], tokens[1], 0),
+															evalToken(tokens[0], tokens[2], 1),
+															texts[tokens[3]]
 							);
 						}
 						break;
 					case WAIT:
 						Thread.sleep(evalToken(tokens[0], tokens[1], 0));
 						break;
-					case DRAW:
-						if (Canvas.createdCanvas) {
-							int startX = evalToken(tokens[0], tokens[1], 0);
-							int startY = evalToken(tokens[0], tokens[2], 1);
-							int widthX = evalToken(tokens[0], tokens[3], 2);
-							int widthY = evalToken(tokens[0], tokens[4], 3);
-							double a = widthX * widthX / 4;
-							double b = widthY * widthY / 4;
-							boolean square = ((tokens[0] >> 4) & 1) == Silos.SQUARE;
-							for (int i = startX; i < startX + widthX; i++) {
-								for (int j = startY; j < startY + widthY; j++) {
-									int xC = i - (startX + widthX / 2);
-									int yC = j - (startY + widthY / 2);
-									if (square || ((xC * xC) / a) + ((yC * yC) / b) < 1) {
-										if (i > 0 && j > 0 && i < Canvas.canvas.length && j < Canvas.canvas[i].length) {
-											Canvas.canvas[i][j] = Canvas.pen;
-										}
-									}
-								}
-							}
-						}
-						break;
+
 					case PEN:
 						if (Canvas.createdCanvas) {
 							Canvas.pen = new Color(
-								evalToken(tokens[0], tokens[1], 0),
-								evalToken(tokens[0], tokens[2], 1),
-								evalToken(tokens[0], tokens[3], 2)
+															evalToken(tokens[0], tokens[1], 0),
+															evalToken(tokens[0], tokens[2], 1),
+															evalToken(tokens[0], tokens[3], 2)
 							);
 						}
 						break;
@@ -472,8 +452,10 @@ public class Silos {
 					g.setColor(d.color);
 					if (d.type == 1) {
 						g.fillOval(d.x, d.y, d.width, d.height);
-					} else {
+					} else  if(d.type==0){
 						g.fillRect(d.x, d.y, d.width, d.height);
+					}else{
+						g.drawLine(d.x, d.y, d.x+d.width, d.y+d.height);
 					}
 				}
 			}
@@ -483,7 +465,7 @@ public class Silos {
 				return new Dimension(x, y);
 			}
 		}
-		public static Color[][] canvas;
+
 		public static Color pen = Color.black;
 		static boolean createdCanvas = false;
 		public static Canvas c;
@@ -497,21 +479,19 @@ public class Silos {
 			this.setLocationRelativeTo(null);
 			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			this.addKeyListener(new Input());
+			this.setResizable(false);
 		}
 
 		public static void createCanvas(int x, int y, String message) {
 			if (!createdCanvas) {
 				createdCanvas = true;
-				canvas = new Color[x][y];
-				for (int i = 0; i < canvas.length; i++) {
-					for (int j = 0; j < canvas[i].length; j++) {
-						canvas[i][j] = Color.white;
+				c = new Canvas(x, y, message);
 					}
 				}
-				c = new Canvas(x, y, message);
+
 			}
-		}
-	}
+		
+	
 
 	/**
 	 * Another way to temporarily hold the memory
@@ -597,10 +577,10 @@ public class Silos {
 			for (int i = 0; i < tokens.size(); i++) {
 				String command = tokens.get(i);
 				if (command.startsWith("def")
-					|| command.startsWith("//")
-					|| command.startsWith("#")
-					|| command.startsWith("*")
-					|| command.startsWith("/*")) {
+												|| command.startsWith("//")
+												|| command.startsWith("#")
+												|| command.startsWith("*")
+												|| command.startsWith("/*")) {
 					continue;
 				}
 				for (int j = 1; i < progSize && j < replace.length; j += 2) {
@@ -1122,49 +1102,8 @@ public class Silos {
 					program.add(new int[]{Silos.MOVEOBJ + (mode3 << 2) + (mode2 << 1) + (mode1), arg1, arg2, arg3});
 					continue;
 				}
-				//five arguments
-				if (instruction.equals("draw")) {
-					int mode1, mode2, mode3, mode4;
-					int arg1, arg2, arg3, arg4;
-					int shape;
-					if (words[1].equals("square")) {
-						shape = Silos.SQUARE;
-					} else {
-						shape = Silos.ELLIPSE;
-					}
-					try {
-						arg1 = Integer.parseInt(words[2]);
-						mode1 = Silos.INTEGER;
-					} catch (Exception e) {
-						arg1 = (int) words[2].charAt(0);
-						mode1 = Silos.VARIABLE;
-					}
-					try {
-						arg2 = Integer.parseInt(words[3]);
-						mode2 = Silos.INTEGER;
-					} catch (Exception e) {
-						arg2 = (int) words[3].charAt(0);
-						mode2 = Silos.VARIABLE;
-					}
-					try {
-						arg3 = Integer.parseInt(words[4]);
-						mode3 = Silos.INTEGER;
-					} catch (Exception e) {
-						arg3 = (int) words[4].charAt(0);
-						mode3 = Silos.VARIABLE;
-					}
-					try {
-						arg4 = Integer.parseInt(words[5]);
-						mode4 = Silos.INTEGER;
-					} catch (Exception e) {
-						arg4 = (int) words[5].charAt(0);
-						mode4 = Silos.VARIABLE;
-					}
-					program.add(new int[]{Silos.DRAW + (shape << 4) + (mode4 << 3) + (mode3 << 2) + (mode2 << 1) + (mode1), arg1, arg2, arg3, arg4});
-					continue;
-				}
-
-				//please
+				
+				//n arguments 
 				if (instruction.equals("bind")) {
 					int[] bindings = new int[words.length * 2 + 1];
 					bindings[0] = Silos.BIND;
@@ -1246,12 +1185,12 @@ public class Silos {
 						program.add(new int[]{instr, arg1});
 					} else if (instr == Silos.ASSIGN) {
 //If the last phrase is a mathematical expression
-String s;						
-if ((s=temp.substring(temp.lastIndexOf('=')+1).replaceAll(" ","")).matches("(.*)[\\Q()*-+/^\\E](.*)") || words[2].contains("rand")) {
+						String s;
+						if ((s = temp.substring(temp.lastIndexOf('=') + 1).replaceAll(" ", "")).matches("(.*)[\\Q()*%-+/^\\E](.*)") || words[2].contains("rand")) {
 							arg2 = texts.size();
 							texts.add(s);
 							mode = Silos.PARSABLE;
-
+//go into parsable mode
 						} else {
 							try {
 								arg2 = Integer.parseInt(words[2]);
@@ -1351,9 +1290,9 @@ if ((s=temp.substring(temp.lastIndexOf('=')+1).replaceAll(" ","")).matches("(.*)
 	}
 
 	/**
-	 * Evaluates a mathematical expression 
-	 * Currently supported operators (+-//*%^) addition subtraction
-	 * multiplication division (/) modulus and exponentiation
+	 * Evaluates a mathematical expression Currently supported operators (+-//*%^)
+	 * addition subtraction multiplication division (/) modulus and exponentiation
+	 *
 	 * @param toParse
 	 * @return
 	 */
