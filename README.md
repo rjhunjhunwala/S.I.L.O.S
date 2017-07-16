@@ -2,6 +2,19 @@
 S.I.L.O.S or SIL is designed for a nostalgic view of the past. It is simple and minimalistic, but remains capable of universal computation.
 Feel free to [try this language online]( http://silos.tryitonline.net/#code=cHJpbnQgU2ltcGxlIEludGVycHJldGVkIExhbmd1YWdl&input=)! The interpreter is hosted by Dennis Mitchell. <b>Please do not pass the file name as a command line argument.For Both the interpreter online and the version using command line arguments for file names SILOS is in a non interactive "safe mode". In safe mode input is only taken through command line arguments one argument per each line on stdin. No prompts are displayed, and no graphical output is given!</b>
 <hr/>
+<p xmlns:dct="http://purl.org/dc/terms/">
+  <a rel="license"
+     href="http://creativecommons.org/publicdomain/zero/1.0/">
+    <img src="http://i.creativecommons.org/p/zero/1.0/88x31.png" style="border-style: none;" alt="CC0" />
+  </a>
+  <br />
+  To the extent possible under law,
+  <a rel="dct:publisher"
+     href="https://github.com/rjhunjhunwala">
+    <span property="dct:title">Rohan Jhunjhunwala</span></a>
+  has waived all copyright and related or neighboring rights to
+  <span property="dct:title">S.I.L.O.S/SIL</span>.
+</p>
 <h2> S.I.L.O.S </h2>
 S.I.L.O.S stands for.
 <pre>
@@ -219,3 +232,16 @@ SIL 3.0 has been released after heavy developement, please do enjoy the followig
 
 <h1><b>Please note that all interactivity including graphics support is unavailable on Try it Online! all input must be through command line arguments</b></h1>
 
+<p xmlns:dct="http://purl.org/dc/terms/">
+  <a rel="license"
+     href="http://creativecommons.org/publicdomain/zero/1.0/">
+    <img src="http://i.creativecommons.org/p/zero/1.0/88x31.png" style="border-style: none;" alt="CC0" />
+  </a>
+  <br />
+  To the extent possible under law,
+  <a rel="dct:publisher"
+     href="https://github.com/rjhunjhunwala">
+    <span property="dct:title">Rohan Jhunjhunwala</span></a>
+  has waived all copyright and related or neighboring rights to
+  <span property="dct:title">S.I.L.O.S/SIL</span>.
+</p>
