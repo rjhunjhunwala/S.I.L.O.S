@@ -1,6 +1,10 @@
-<h1>S.I.L.O.S</h1>
-S.I.L.O.S or SIL is designed for a nostalgic view of the past. It is simple and minimalistic, but remains capable of universal computation.
-Feel free to [try this language online]( http://silos.tryitonline.net/#code=cHJpbnQgU2ltcGxlIEludGVycHJldGVkIExhbmd1YWdl&input=)! The interpreter is hosted by Dennis Mitchell. <b>Please do not pass the file name as a command line argument.For Both the interpreter online and the version using command line arguments for file names SILOS is in a non interactive "safe mode". In safe mode input is only taken through command line arguments one argument per each line on stdin. No prompts are displayed, and no graphical output is given!</b>
+<h1>SIL</h1>
+SIL is designed for a nostalgic view of the past. It is simple and minimalistic, but remains capable of universal computation.
+
+Feel free to <a href="http://silos.tryitonline.net/#code=cHJpbnQgU2ltcGxlIEludGVycHJldGVkIExhbmd1YWdl&input=)">Try It Online. </a> The interpreter is hosted by Dennis Mitchell. <b> 
+  <br/>
+Please do not pass the file name as a command line argument. For Both the interpreter online and the version using command line arguments for file names SILOS is in a non interactive "safe mode". In "safe mode" input is only taken through command line arguments one argument per each line on stdin. No prompts are displayed, and no graphical output is given.</b>
+
 <hr/>
 <p xmlns:dct="http://purl.org/dc/terms/">
   <a rel="license"
@@ -15,65 +19,95 @@ Feel free to [try this language online]( http://silos.tryitonline.net/#code=cHJp
   has waived all copyright and related or neighboring rights to
   <span property="dct:title">S.I.L.O.S/SIL</span>.
 </p>
-<h2> S.I.L.O.S </h2>
-S.I.L.O.S stands for.
-<pre>
-<b>S</b>uperb
-<b>I</b>nterpreted
-<b>L</b>anguage's
-<b>O</b>bviously
-<b>S</b>uperior
-</pre>
-It is also known as SIL (Simple Interpreted Language)
-<h2> Syntax </h2>
-The syntax is simple
+<h2> SIL </h2>
+SIL, was orignally known as S.I.L.OS, but is now known as SIL (Simple Interpreted Language).
+<h2> Overview of Syntax </h2>
+The syntax is simple. The below program is a sample program, which does nothing, but demonstrates the way the language works. 
 <pre>
 //One command per line
 //one letter variable names
 //Only type integer 
-//No declaration needed they all start at 0
+//No declaration needed. All variables are automatically initialised to 0
 //direct access to the memory array 
 a = get 5
-lblFoo
+//In SIL, all data is generally stored on a global array (including variables). When you get the element at index 5, you access the 6th Element (0 indexed)
+//The variable 'A' is stored at spot 65, and in general the variable stored at some variable with a name consisting of a character c, is stored at the integer value of that character.
+lblFoo 
+//labels are declared like this. There may be no space in the variable name
 GOTO Foo
-No syntax checking
-VB like behavior allowing erros to pass unnoticed and unhandled
-if x Foo //goes to Foo iff x>0
-a - b subtraction
-a + b addition
-a * b multiplication
-a / b division
-a % b modulus
-a | //absolute value of a and reassigns this to 
-a ~ bitwise not
-a < b left shift
-a > b right shift
-a & b bitwise and
-a : b or
-a ! b xor
-a ? b xnor
-a ^ b a raised to the b
+//Goes to the first occurence of the foo label
+// The language does not generally enforce syntax, all syntax which does not comply with the specifications will invoke undefined behavior. This generally means the statement is ignored.
+//C style comments ("//") and Python style ("#") comments are supported by the standard, as well as some other commenting styles, most notably /* and * will comment out a line, as homage to Javadoc traditions. 
+//conditional jumo
+if x Foo 
+//This line will jump to the label marked foo if x has a value greater than zero.
 
+//The following operations function as assignment operators. a - b, means a = a-b
+
+a - b 
+//subtraction
+a + b 
+//addition
+a * b 
+//multiplication
+a / b 
+//division
+a % b 
+//modulus
+a | 
+//absolute value of a and reassigns this back to a
+
+// the following operators are bitshift operators
+a ~ 
+//bitwise not
+//For each bit in a, reassign it to its negation
+a < b 
+//bitwise left shift a by b bits
+a > b 
+//right shift a by b bits
+a & b 
+//bitwise and
+a : b 
+//bitwise or
+a ! b 
+//xor
+a ? b 
+//xnor
+a ^ b 
+//a raised to the b
 //all assignment operators x - 5 is the equivalent of x-=5 for those familiar with C styled languages
+
+a = (x+y)^2
+//We support a get call, a single variable (or integer), or an expression to the left of an equals sign
+// The expression, must be well formed, and will be evalauted based on the order of operations set by the conventions of modern mathematics. Internally, the expression will be processed as a double, and the final value will be truncated to an integer. 
+//Currently, bitwise, and unary operators are not supported by SIL
 </pre>
-That is the basic syntax, note that as of this printing, integers are 32 bit signed integers [-1*2^31,2^31-1] which overflow and wrap around. 
-<br/>There is a plan to make them big numbers with unbounded size.
+
+That is the basic syntax. Integers are 32 bit signed integers [-1*2^31,2^31-1] which overflow and wrap around. 
+<br/>
+
 <h2> Memory Buffer </h2>
 
 You can directly write to the memory buffer like such
 <pre>
 set 288 57
-//acccesses the heap at 288 and sets it to 57
+//acccesses the buffer at the index 288 and sets it to 57
 a = get 288
-//gets back what the thing at position 288
+//gets back the value at position 288 and stores it to 288
 printInt a
+//printInt is the print statement which works with integers, it will print the value of A followed by a single trailing line feed.
 set a 88
 //sets the thing at position a to 88
 b = get a
 //gets the thing at position a and sets it in the value of b
 printInt b
 printIntNoLine a
+// function is identical to printInt, but there is no trailing linefeed.
 printLine
+// printLine can optionally be followed by a string to output, it outputs the string (which may be empty), and follows it with a trailing linefeed.
+//for example
+printLine Hello, World!
+//Displays the classic text, and follows it with a linefeed. This means that there are no strings in SIL. There are only barewords.
 a + 10
 b + 11
 set b a
@@ -82,34 +116,39 @@ c = get b
 //gets the number from above
 printInt c
 </pre>
-Remember please be careful to not use any positions below 256 on the array as these can be used for ascii variable names, touch these at great peril
+Remember, please be careful to not use any positions below 256 on the array as these can be used for ascii variable names. Access these locations at great peril.
 <h2>IO</h2>
-input and output is done like so
+There are various methods to perform Input and Output in SIL.
 <pre>readIO SOME PROMPT FOR THE USER</pre>
-the magical interpreter thus prints out SOME PROMPT FOR THE USER  and stores the value in the variable i
-NOTE that for the onlne version it is imperative you avoid the use of this command. All prompts are disabled in the online version, so
-<pre>printLine SOME PROMPT</pre>
-and then
-<pre>readIO :</pre>
-Printing is done with three commands
-<pre>printInt a
-//prints out the value of a with a trailing newline
+The interpreter prints out "SOME PROMPT FOR THE USER" and stores the value in the variable i
+NOTE that for the onlne version it is imperative you avoid the use of this command. All prompts are disabled in the online version. Instead please consider using:
+<pre>printLine SOME PROMPT
+readIO :
+</pre>
+
+As alluded to above, printing is done with a few different commands.
+
+<pre>printInt x
+//prints out the value stored in x with a trailing newline
+printIntNoLine x
+//prints out the value of x without the trailing newline
 printLine a
 //prints out "a" with a trailing newline
 print a
-//prints out "a" with no trailing new line
-printChar x prints out the value of x as a character
+//prints out "a" without trailing new line
+printChar x 
+//prints out the value of x as a character
+// If the value of x was 66 we would output "B"
 </pre>
 
-<h2> Entropy </h2>                                                                                                                                                    
-the randomness is provided by a prng currently the
-prng is provided courtesy of Oracle and uses the system time as a seed
+<h2> Randomness </h2>                                                                                                                                                    
+Randomness can be obtained by a prng.
 <pre>rand x</pre>
-gets a random number [0,x) 0 inclusive to max exclusive and stores it in the variable r
-max may also be a literal like 12
+The above gets a random number on the range [0,x) stores it in the variable r.
+Like in all commands, you can use a literal integer value like 12 instead of a variable.
 <h2> Functions </h2>
-See the usage of functions in functions.txt to better comperehend it, but here is the basics. Function should be declared as
-such
+Please do see the usage of functions in functions.txt for more example, but here is the basics. Functions should be declared as
+such. 
 <pre>
 GOTO endOfAllFunctions
 funcfunctionname
@@ -119,16 +158,15 @@ funcsomeFunc
 return
 lblendOfAllFunctions
 </pre>
-now at any point in the code you may calll the function named functionname as such
+Place this code at the beginning of your file. Although SIL will run when you call a function declared below it, it will output a warning to STDERR.
+At any point in the code you may now call the function named functionname as such.
 <pre>
 GOSUB functionname
 </pre>
-The stack is automagically handled works similar to most languages. However one must  be cuatious of properly enclosing the function safely with returns.
-Also ensure to jump around the functions with the Goto's otherwise all the functions will run.
-
-Ideally functions should have only one return statement.
-
-As of this printing functions can only be void and have no return type. 
+The call stack is handled by the interpreter, but make sure that you end each function with a return statement. 
+Be sure to jump around the functions with the Goto's otherwise all the functions will run, even if you do not call them elsewhere.
+As a matter of principle, functions should have only one return statement.
+Currently, functions can only be void and have no return type. 
 <h2> Style </h2>
 the first line is used by the interpreter to allocate the size of the array (heap) this number should be at least 256
 if you omit this line the interpretter will just allocate 8192 slots in its memory for its future use
