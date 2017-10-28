@@ -6,11 +6,12 @@ SIL is designed for a nostalgic view of the past. It is simple and minimalistic,
 
 
 
-<h2>Running The code</h2>
+<h2>Running your code</h2>
 There are many ways to run code in SILOS
-
-
-You may build the Silos.java class into a jar or a .class file, and run the output. It will then prompt for a file name containing code to run. You also can <a href="http://silos.tryitonline.net/#code=cHJpbnQgU2ltcGxlIEludGVycHJldGVkIExhbmd1YWdl&input=)">"Try It Online." </a> The online interpreter is hosted by Dennis, a trusted moderator of the <a href="https://codegolf.stackexchange.com/">Code Golf Stack Exchange</a> and hosts a number of different recreational and practical languages.
+</br>
+You may build the Silos.java class into a jar or a .class file. When you execute this file, it will then prompt for a file name containing code to run. 
+<br/>
+You also can <a href="http://silos.tryitonline.net/#code=cHJpbnQgU2ltcGxlIEludGVycHJldGVkIExhbmd1YWdl&input=)">"Try It Online." </a> The online interpreter is hosted by Dennis, a trusted moderator of the <a href="https://codegolf.stackexchange.com/">Code Golf Stack Exchange</a> and hosts a number of different recreational and practical languages.
 
 If you have built the interpreter on your own computer please do not pass the file name as a command line argument. 
 
