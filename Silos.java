@@ -1,3 +1,4 @@
+package IDE;
 
 /*
  * Feel free to modify and distribute the code and all relevant documentation
@@ -98,6 +99,7 @@ public class Silos {
 	private static final int POP_UP = 41 << 8;
 	private static final int GET_STRING_POP_UP = 42 << 8;
  private static final int ALLOC = 43 << 8;
+	private static final int clear = 44 << 8;
 	
 	
 	//MODES
@@ -105,8 +107,6 @@ public class Silos {
 	private final static int VARIABLE = 1;
 	private final static int PARSABLE = 2;
 
-	private final static int ELLIPSE = 0;
-	private final static int SQUARE = 1;
 
 	/**
 	 * Prints out the prompt and then returns the string user types
