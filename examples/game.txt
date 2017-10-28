@@ -1,11 +1,11 @@
-w   513
+  513
        def : lbl
 /***********************************\
 *Simple example of a game           *
 *                                   *
 *The user simply dodges the circles *
 ************************************/
-//test
+
 canvas 640 640 The-Avoidance-Game!
    
         
