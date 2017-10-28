@@ -267,7 +267,7 @@ All lines are now indentable!
 
 <h1>Stacks and Queues </h1>
 
-You have access to 32 stacks and 32 queues
+You have access to 32 stacks and 32 queues.
 
 Consider the following sample code.
 
@@ -321,7 +321,7 @@ GOTO EndOfTheStandardLibraries
 * There is no need to download this file as it is attached with the release (in \"Silos.java\")
 * simply import this library by using \"leverage stdlib\"
 * To make a library of your own, follow the standards presented in this code. Most notably,
-* Start the code with a goto to skip all of the utility methods. 
+* start the code with a goto to skip all of the utility methods. 
 * Then, to import your code, use \"leverage fileName.txt\" (replacing with the fully qualified file name)
 */
 
