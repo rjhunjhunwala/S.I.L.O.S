@@ -274,20 +274,20 @@ Consider the following sample code.
 <pre>
 stack x y
 
-will add y to the xth stack
+//will add y to the xth stack
 
 queue x y
 
-will queue y onto the xth queue
+//will queue y onto the xth queue
 
 stackPop x
 
-will pop a value off of the xth stack and store in variable m
+//will pop a value off of the xth stack and store in variable m
 
 queuePop x
 
-will pop a value off of the front of the xth queue and store in the variable marked m.
-
+//will pop a value off of the front of the xth queue and store in the variable marked m.
+</pre>
 <h1>SIL 3.0</h1>
 
 SIL 3.0 has been released after heavy developement, please do enjoy the followign features.
