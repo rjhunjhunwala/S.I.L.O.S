@@ -222,6 +222,7 @@ a + 1
 if x a
 :end
 </pre>
+</pre>
 The new features, in this version include the prepocessor and the improved input method.
 
 <hr/>
