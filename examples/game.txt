@@ -1,7 +1,13 @@
-   513
+w   513
        def : lbl
+/***********************************\
+*Simple example of a game           *
+*                                   *
+*The user simply dodges the circles *
+************************************/
+//test
 canvas 640 640 The-Avoidance-Game!
-    
+   
         
     pen 0 0 255
     newObj 0 640 640
@@ -114,3 +120,4 @@ GOTO a
 print You Scored 
 printIntNoLine s
 printLine  points!
+//Game Over!
