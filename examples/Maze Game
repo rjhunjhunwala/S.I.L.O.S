@@ -1,0 +1,310 @@
+65536
+
+bind 65 512 97 512 68 513 100 513 87 514 119 514 83 515 115 515
+//bind the wasd keys to the 512 - 515th spots of the heap.
+
+wait 200
+S = 45
+W = 15
+
+GOSUB Main
+
+GOTO endOfFunctionDeclarations
+
+/**
+* Creates a maze and stores it in the heap from spot
+* 100 to 100 + S*S
+*/
+funcMakeMaze
+
+    X = 1
+    Y = 1
+    stack 0 X
+    stack 1 Y
+    N = 1
+    set 500 2
+    set 501 0
+    set 502 -2
+    set 503 0
+    set 504 0
+    set 505 -2
+    set 506 0
+    set 507 2
+    lbla
+        GOSUB findNewNode
+    if N a
+return
+
+funcfindNewNode
+
+    stackPop 0
+    X = m
+    stackPop 1
+    Y = m
+    stack 0 X
+    stack 1 Y
+
+    L = rand * 4
+    i = 4
+    lblFourLoop
+ 
+        l = (i + L)%4
+        U = 500 + l * 2
+        u = 501 + l * 2
+        V = get U
+        v = get u
+        X + V
+        Y + v
+        GOSUB IsValid
+        a = rand * 2
+        A = rand * 2
+        B = rand * 2
+        b = rand * 2
+        C = rand * 2
+        t = 1 - t - (A * B * a * b * C)
+        if t NotValid
+            stack 0 X
+            stack 1 Y
+            N + 1
+            Q = V/2
+            q = v/2
+            X - V
+            Y - v
+            X + Q
+            Y + q
+            s = 1            
+            GOSUB Set
+            X + Q
+            Y + q
+            s = 1
+            GOSUB Set 
+            return
+        lblNotValid
+    X - V
+    Y - v
+    i-1 
+    if i FourLoop
+    stackPop 0
+    stackPop 1
+    N - 1
+return
+
+/**
+* Checks to make sure array[X][Y]==0 and exists
+* t=1 iff X,Y is valid
+*/
+funcIsValid
+    if X X1
+        t = 0
+        return
+    lblX1
+    if Y Y1
+        t = 0
+        return
+    lblY1
+    t = S - X
+    if t X2
+        t = 0
+        return
+    lblX2
+    t = S - Y
+    if t Y2
+        t = 0
+        return
+    lblY2
+
+    GOSUB Get
+    t = 1 - m
+return
+
+funcFixBorder
+    s = 0
+    A = S
+    lblFix
+    A - 1
+    X = A
+    Y = S - 1
+    GOSUB Set
+    Y = 0
+    GOSUB Set
+    X = 0
+    Y = A
+    GOSUB Set
+    X = S - 1
+    GOSUB Set
+    if A Fix
+return
+
+
+
+funcRenderMaze
+    a =  S * W - 10
+    //magic number 10 fixed everything
+    canvas a a Gremlin-Runner
+    n = 0
+    x = -1
+    y = -1
+    lblTopX
+    y + 1
+    t = \1 * (S - 1 - y)
+    if t EndLoopX
+    x = -1
+        lblTopY
+        x + 1
+        t = \1 * (S - 1 - x)
+        if t TopX
+        X = x
+        Y = y
+        GOSUB Get
+        pen 0 0 255
+        if m open
+            pen 0dd 255 0
+        lblopen
+        newObj 0 W W
+        X*W
+        Y*W
+        moveObj n X Y 
+        n + 1
+        GOTO TopY
+    lblEndLoopX
+
+    pen 255 0 0
+    newObj 1 W W
+    moveObj n W W
+    refresh    
+   
+
+return
+
+funcMakeGlade
+    G = 11
+    g = S / 2 - G/2
+    lblGlade
+    Z = 11
+    G - 1
+    X = g + G
+    lblGladeY
+    Z - 1
+    Y = g + Z
+    s = 1
+    GOSUB Set
+    if Z GladeY  
+
+    if G Glade
+return
+/**
+*No arguments
+*/
+funcMain
+    GOSUB MakeMaze
+    GOSUB MakeGlade
+    GOSUB FixBorder
+    GOSUB RenderMaze
+
+
+    y = W * S / 2
+    x = W * S / 2
+    c = 0
+    //iterator
+    E = 0
+    //number of enemies
+    lblb
+        X = x
+        Y = y
+
+        a = get 512
+        if a bM
+            GOTO cM
+        lblbM
+            X - W
+            set 512 0
+        lblcM
+
+        a = get 513
+        if a bM1
+            GOTO cM1
+        lblbM1
+            X + W
+            set 513 0
+        lblcM1
+
+        a = get 514
+        if a bM2
+            GOTO cM2
+        lblbM2
+            Y - W
+            set 514 0
+        lblcM2
+
+        a = get 515
+        if a bM3
+            GOTO cM3
+        lblbM3
+            Y + W
+            set 515 0
+        lblcM3
+
+        X/W
+        Y/W
+
+        GOSUB Get
+        m = 1 - m
+       
+        if m wall
+            x = X*W
+            y = Y*W
+        lblwall
+        a = S*S
+        moveObj a x y
+        refresh
+        
+        c + 1
+        c % 25000
+        if c skip
+        a = 7
+        lblSpawnLoop
+        a - 1
+        X = rand * S
+        Y = rand * S
+        GOSUB Get
+        m = m * ((X-x)^2+(Y-y)^2) 
+        m = 1 - m
+        
+        if m skipSpawn
+      
+        e = 60000 + E * 2
+        set e X
+        set e Y
+        
+        E + 1
+        lblskipSpawn
+        if a SpawnLoop
+        lblskip
+
+
+    GOTO b  
+
+return
+
+//int[][] array = new int[S][S]
+
+/**
+* Receives input as variables X and Y and returns  
+* array[X][Y]
+* uses m as a temp variable and recylces it for output
+*/
+
+funcGet
+    m = 1000+S*Y+X
+    m = get m
+return
+
+//array[X][Y]=s
+funcSet
+    m = 1000+S*Y+X
+    set m s
+return
+
+lblendOfFunctionDeclarations
+
+printLine Thanks For Playing!
