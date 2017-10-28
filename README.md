@@ -190,15 +190,14 @@ Numerical input is stored into the variable named "i" and rand stores its output
 
 <hr/>
 <h1>Changelog!</h1>
-As of 8/24/2016 SIL has new, improved input, here are the new features
-<pre>
+As of 8/24/2016 SIL 1.5 has been released. It features new, improved input, here are the new features.
 
-<h2>SIL 1.5</h2>
 Considering the following sample code
+
 <pre>
 //This sample program shows the new features of SIL
 def p print load loadLine : lbl
-// The above statement makes use of the pre-pocessor(which must appear on the second line) defines any number of macros in the form of def string replace string2 replace
+// The above statement makes use of the pre-pocessor(which must appear on the second line) defines any number of macros in the form of def string replacement string2 replacement
 //Now, p is an allias for print, and we can use it as such
 p Hello,
 pLine  World!
@@ -222,14 +221,17 @@ a + 1
 if x a
 :end
 </pre>
-</pre>
+
 The new features, in this version include the prepocessor and the improved input method.
 
 <hr/>
 
 <h1>Graphics</h1> 
+
 Support for Graphical Output has been added in SIL 2.0. SIL 2.0 comes primarily with support for graphics, but also features a highly optimized interpreter (<b>thanks to  kckennylau!</b>), and a <pre>wait x</pre> command which as the name would suggest, waits x milliseconds. Now, let's take a look at how graphical output works. 
+
 <pre>canvas width height wordForTheHeader</pre>
+
 First use the above command to declare a canvas.
 This command takes in a width a height, and a single bareword (no spaces) for the text at the top of the window. Each of the numerical arguments may be a numerical literal or a variable.
 
@@ -237,7 +239,9 @@ On this canvas there will be objects.
 
 Each object you create will be in the current pen color.
 You may set the pen color by the following command. 
+
 <pre>pen r g b</pre> 
+
 Replace r g and b with variables (or integer literals) representing red green and blue values of the color you would like.
 Now, you may create objects using the following command:
 
@@ -307,6 +311,7 @@ And you now may use functions defined within the standard library. Other librari
 <pre>
 leverage fileName.txt
 </pre>
+
 Essentially, this takes the text in the file (runs it through the prepocessor independently) and appends it to your code. Here, is the source for the standard library, but know that you do not need to keep the source of the standard library in the same directory in order to use it.
 
 <pre>
