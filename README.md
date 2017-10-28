@@ -14,7 +14,7 @@ You may build the Silos.java class into a jar or a .class file. When you execute
 You also can <a href="http://silos.tryitonline.net/#code=cHJpbnQgU2ltcGxlIEludGVycHJldGVkIExhbmd1YWdl&input=)">"Try It Online." </a> The online interpreter is hosted by Dennis, a trusted moderator of the <a href="https://codegolf.stackexchange.com/">Code Golf Stack Exchange,</a> and hosts a number of different recreational and practical languages.<br/>
 <br/>
 If you are using the interpreter on your own computer please do not pass the file name as a command line argument. Instead, run the interpreter, and it will prompt for a file name as input. 
-<br/>
+<br/><br/>
 <b>Please note for both the interpreter online and the version which takes in the file name as a command line argument SILOS is in a non interactive "safe mode". In "safe mode" input is only taken through command line arguments. Use one argument per each line on stdin. Also, in safe mode no prompts are displayed, and no graphical output is given.</b>
 
 
