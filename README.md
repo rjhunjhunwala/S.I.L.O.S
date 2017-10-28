@@ -1,9 +1,21 @@
 <h1>SIL</h1>
 SIL is designed for a nostalgic view of the past. It is simple and minimalistic, but remains capable of universal computation.
 
-Feel free to <a href="http://silos.tryitonline.net/#code=cHJpbnQgU2ltcGxlIEludGVycHJldGVkIExhbmd1YWdl&input=)">"Try It Online." </a> The interpreter is hosted by Dennis Mitchell. <b> 
-  <br/>
-Please do not pass the file name as a command line argument. For Both the interpreter online and the version using command line arguments for file names SILOS is in a non interactive "safe mode". In "safe mode" input is only taken through command line arguments one argument per each line on stdin. No prompts are displayed, and no graphical output is given.</b>
+
+<br/>
+
+
+
+<h2>Running The code</h2>
+There are many ways to run code in SILOS
+
+
+You may build the Silos.java class into a jar or a .class file, and run the output. It will then prompt for a file name containing code to run. You also can <a href="http://silos.tryitonline.net/#code=cHJpbnQgU2ltcGxlIEludGVycHJldGVkIExhbmd1YWdl&input=)">"Try It Online." </a> The online interpreter is hosted by Dennis, a trusted moderator of the <a href="https://codegolf.stackexchange.com/">Code Golf Stack Exchange</a> and hosts a number of different recreational and practical languages.
+
+If you have built the interpreter on your own computer please do not pass the file name as a command line argument. 
+
+<b>Please note for both the interpreter online and the version which takes in the file name as a command line argument SILOS is in a non interactive "safe mode". In "safe mode" input is only taken through command line arguments. Use one argument per each line on stdin. Also, in safe mode no prompts are displayed, and no graphical output is given.</b>
+
 
 <hr/>
 <p xmlns:dct="http://purl.org/dc/terms/">
