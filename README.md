@@ -17,21 +17,8 @@ If you are using the interpreter on your own computer please do not pass the fil
 <br/><br/>
 <b>Please note for both the interpreter online and the version which takes in the file name as a command line argument SILOS is in a non interactive "safe mode". In "safe mode" input is only taken through command line arguments. Use one argument per each line on stdin. Also, in safe mode no prompts are displayed, and no graphical output is given.</b>
 
-
 <hr/>
-<p xmlns:dct="http://purl.org/dc/terms/">
-  <a rel="license"
-     href="http://creativecommons.org/publicdomain/zero/1.0/">
-    <img src="http://i.creativecommons.org/p/zero/1.0/88x31.png" style="border-style: none;" alt="CC0" />
-  </a>
-  <br />
-  To the extent possible under law,
-  <a rel="dct:publisher"
-     href="https://github.com/rjhunjhunwala">
-    <span property="dct:title">Rohan Jhunjhunwala</span></a>
-  has waived all copyright and related or neighboring rights to
-  <span property="dct:title">S.I.L.O.S/SIL</span>.
-</p>
+
 <h2> SIL </h2>
 SIL, was orignally known as S.I.L.OS, but is now known as SIL (Simple Interpreted Language).
 <h2> Overview of Syntax </h2>
