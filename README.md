@@ -7,7 +7,7 @@ SIL is designed for a nostalgic view of the past. It is simple and minimalistic,
 
 
 <h2>Running your code</h2>
-There are many ways to run code in SILOS.
+There are many ways to run code in SIL.
 </br><br/>
 You may build the Silos.java class into a jar or a .class file. When you execute this file, it will then prompt for a file name containing code to run. 
 <br/><br/>
