@@ -38,7 +38,7 @@ GOTO Foo
 //Goes to the first occurence of the foo label
 // The language does not generally enforce syntax, all syntax which does not comply with the specifications will invoke undefined behavior. This generally means the statement is ignored.
 //C style comments ("//") and Python style ("#") comments are supported by the standard, as well as some other commenting styles, most notably /* and * will comment out a line, as homage to Javadoc traditions. 
-//conditional jumo
+//conditional jump
 if x Foo 
 //This line will jump to the label marked foo if x has a value greater than zero.
 
